@@ -1,0 +1,38 @@
+@import url('./tailwind.css');
+
+@layer components {
+  html {
+    @apply overflow-x-hidden text-gray-800;
+    scrollbar-width: none;
+  }
+
+  body {
+    @apply container mx-auto flex justify-center min-h-screen;
+  }
+
+  body::after {
+    @apply fixed top-0 left-0 w-screen h-screen;
+    background-color: var(--theme-translucent-color);
+    background-image: url('@/assets/textures/frosted.png');
+    content: '';
+    z-index: -2;
+  }
+  body::before {
+    @apply fixed top-0 left-0 w-screen h-screen bg-fixed bg-center bg-cover bg-no-repeat;
+    content: '';
+    z-index: -1;
+    opacity: 0.5;
+    background-image: var(--background-image);
+    background-size: 60% auto;
+    background-position: right center;
+    transition: background-image 0.8s;
+  }
+
+  #app {
+    @apply flex w-full;
+  }
+
+  .page {
+    @apply relative min-h-screen px-4 py-24 tracking-wide sm:px-0 lg:py-16 flex-1;
+  }
+}
