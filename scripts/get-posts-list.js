@@ -43,7 +43,8 @@ function processMDFiles(folderPath) {
   const postFileDataList = mdFiles.map((filePath) => {
     const { attributes, body } = parseMdFile(filePath)
     return {
-      filePath: filePath.split(path.sep).join('/'),
+      fileName: path.basename(filePath),
+      filePath: filePath.split(path.sep).join('/').replace('public', ''),
       data: { ...attributes, description: attributes.description || extractFirstParagraph(body) },
     }
   })
@@ -63,7 +64,7 @@ function processMDFiles(folderPath) {
     }
   })
 
-  return { posts: postFileDataList, tags, categories }
+  return { allPosts: postFileDataList, tags, categories }
 }
 
 export function getPostsList() {
