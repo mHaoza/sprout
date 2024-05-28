@@ -47,5 +47,12 @@
     "vite": "^5.2.10",
     "vite-plugin-cdn-import": "^1.0.1",
     "vue-tsc": "^2.0.14"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged",
+    "commit-msg": "node scripts/verify-commit.js"
+  },
+  "lint-staged": {
+    "*.{ts,js,vue}": "eslint --fix"
   }
 }
