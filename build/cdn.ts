@@ -20,6 +20,17 @@ export const cdn = importToCDN({
       path: 'dist/vue-router.global.prod.js',
     },
     {
+      // 这个包项目未使用， 但@vueuse/core依赖它
+      name: '@vueuse/shared',
+      var: 'VueUse',
+      path: 'index.iife.min.js',
+    },
+    {
+      name: '@vueuse/core',
+      var: 'VueUse',
+      path: 'index.iife.min.js',
+    },
+    {
       name: 'markdown-it',
       var: 'markdownit',
       path: 'dist/markdown-it.min.js',
