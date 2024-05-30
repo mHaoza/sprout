@@ -1,4 +1,4 @@
-import data from '../../public/posts/data.json'
+import data from '../../data/posts.json'
 import type { PostData } from '@/types'
 
 const { allPosts, tags, categories }: PostData = data

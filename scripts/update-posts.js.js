@@ -5,7 +5,7 @@ import process from 'node:process'
 import degit from 'degit'
 import { SingleBar } from 'cli-progress'
 import chalk from 'chalk'
-import { getPostsList } from './get-posts-list.js'
+import { getPostsData } from './get-posts-data.js'
 
 // 获取当前文件路径
 const __filename = fileURLToPath(import.meta.url)
@@ -51,6 +51,6 @@ emitter.clone(targetPath).then(() => {
   console.error(chalk.red('posts仓库克隆过程中发生错误:', err))
 }).finally(() => {
   progressBar.stop()
-  getPostsList()
+  getPostsData()
   process.exit()
 })

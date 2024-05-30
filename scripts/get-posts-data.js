@@ -44,7 +44,7 @@ function processMDFiles(folderPath) {
     const { attributes, body } = parseMdFile(filePath)
     return {
       fileName: path.basename(filePath),
-      filePath: filePath.split(path.sep).join('/').replace('public', ''),
+      filePath: path.dirname(filePath).split(path.sep).join('/').replace('public', ''),
       data: { ...attributes, description: attributes.description || extractFirstParagraph(body) },
     }
   })
@@ -67,8 +67,9 @@ function processMDFiles(folderPath) {
   return { allPosts: postFileDataList, tags, categories }
 }
 
-export function getPostsList() {
+export function getPostsData() {
   const data = processMDFiles('./public/posts')
-  fs.writeFileSync('./public/posts/data.json', JSON.stringify(data, null, 2))
+  fs.mkdirSync('./data')
+  fs.writeFileSync('./data/posts.json', JSON.stringify(data, null, 2))
   console.log('#posts data generated successfully#')
 }
