@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Code, Home, PersonStanding, Tent, Tv } from 'lucide-vue-next'
 import { onMounted } from 'vue'
-import color from 'color'
 import { useRoute } from 'vue-router'
 import Clara from '@/assets/images/role/Clara.png'
 
@@ -41,7 +40,7 @@ onMounted(() => {
         </router-link>
       </nav>
       <div class="flex-1 flex flex-col justify-end w-2/3 pl-3 pb-3">
-        <div class="text-6xl tracking-wider">啊这</div>
+        <div class="text-6xl tracking-wider font-['TsangerZhoukeZhengdabangshu']">啊这</div>
         <div class="pt-2 pb-8 pl-1 text-xl tracking-wider">关于我转生成为切图仔这件事</div>
       </div>
     </div>

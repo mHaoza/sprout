@@ -1,13 +1,19 @@
 @import url('./tailwind.css');
-
+@import url('https://chinese-fonts-cdn.deno.dev/chinesefonts3/packages/lxgwwenkai/dist/LXGWWenKai-Bold/result.css');
+@import url('https://chinese-fonts-cdn.deno.dev/chinesefonts3/packages/cezkzdbs/dist/仓耳周珂正大榜书/result.css');
 @layer components {
+  :root {
+    --font-color: #374151;
+    scrollbar-gutter: stable both-edges;
+    overflow-y: overlay;
+  }
   html {
     @apply overflow-x-hidden text-gray-800;
-    scrollbar-width: none;
   }
 
   body {
     @apply container mx-auto flex justify-center min-h-screen;
+    font-family: 'LXGW WenKai';
   }
 
   body::after {
@@ -29,10 +35,10 @@
   }
 
   #app {
-    @apply flex w-full;
+    @apply flex  justify-center w-full;
   }
 
   .page {
-    @apply relative min-h-screen px-4 py-24 tracking-wide sm:px-0 lg:py-16 flex-1;
+    @apply relative max-w-screen-lg min-h-screen px-4 py-24 tracking-wide sm:px-0 lg:py-16 flex-1;
   }
 }
