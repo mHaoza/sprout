@@ -1,10 +1,10 @@
 @import url('./tailwind.css');
 @import url('https://chinese-fonts-cdn.deno.dev/chinesefonts3/packages/lxgwwenkai/dist/LXGWWenKai-Bold/result.css');
-@import url('https://chinese-fonts-cdn.deno.dev/chinesefonts3/packages/cezkzdbs/dist/仓耳周珂正大榜书/result.css');
+@import url('https://chinese-fonts-cdn.deno.dev/chinesefonts3/packages/yzgcxst/dist/也字工厂小石头/result.css');
 @layer components {
   :root {
     --font-color: #374151;
-    scrollbar-gutter: stable both-edges;
+    scrollbar-gutter: stable;
     overflow-y: overlay;
   }
   html {
@@ -14,11 +14,11 @@
   body {
     @apply container mx-auto flex justify-center min-h-screen;
     font-family: 'LXGW WenKai';
+    background-color: var(--theme-background-color);
   }
 
   body::after {
     @apply fixed top-0 left-0 w-screen h-screen;
-    background-color: var(--theme-translucent-color);
     background-image: url('@/assets/textures/frosted.png');
     content: '';
     z-index: -2;
@@ -40,5 +40,19 @@
 
   .page {
     @apply relative max-w-screen-lg min-h-screen px-4 py-24 tracking-wide sm:px-0 lg:py-16 flex-1;
+  }
+
+
+  /* custom scrollBar */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: var(--theme-color);
+  }
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
   }
 }

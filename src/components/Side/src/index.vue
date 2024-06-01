@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { Code, Home, PersonStanding, Tent, Tv } from 'lucide-vue-next'
-import { onMounted } from 'vue'
 import { useRoute } from 'vue-router'
-import Clara from '@/assets/images/role/Clara.png'
 
 const route = useRoute()
 
@@ -13,15 +11,6 @@ const linkList = [
   { name: '追番', path: '/anime', icon: Tv },
   { name: '自述', path: '/about', icon: PersonStanding },
 ]
-
-const themeList = [{ type: 'Clara', name: '猩红兔子', color: '#8C0212', backgroundColor: '#FCFAF2', image: Clara }]
-onMounted(() => {
-  const theme = themeList[0]
-  document.documentElement.style.setProperty('--theme-color', theme.color)
-  document.documentElement.style.setProperty('--theme-translucent-color', theme.backgroundColor)
-  document.documentElement.style.setProperty('--background-image', `url('${theme.image}')`)
-  document.getElementsByTagName('body')[0].className = theme.type
-})
 </script>
 
 <template>
@@ -39,8 +28,8 @@ onMounted(() => {
           <component :is="item.icon" />
         </router-link>
       </nav>
-      <div class="flex-1 flex flex-col justify-end w-2/3 pl-3 pb-3">
-        <div class="text-6xl tracking-wider font-['TsangerZhoukeZhengdabangshu']">啊这</div>
+      <div class="flex-1 flex flex-col justify-end w-2/3 pl-3 pb-3 font-['YEFONTXiaoShiTou']">
+        <div class="text-6xl tracking-wider">啊这</div>
         <div class="pt-2 pb-8 pl-1 text-xl tracking-wider">关于我转生成为切图仔这件事</div>
       </div>
     </div>
