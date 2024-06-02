@@ -35,5 +35,10 @@ export const cdn = importToCDN({
       var: 'markdownit',
       path: 'dist/markdown-it.min.js',
     },
+    {
+      name: 'dayjs',
+      var: 'dayjs',
+      path: 'dayjs.min.js',
+    },
   ],
 })

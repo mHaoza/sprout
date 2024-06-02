@@ -17,7 +17,9 @@ onMounted(() => {
 <template>
   <Side />
 
-  <RouterView class="page" />
+  <div class="page">
+    <RouterView />
+  </div>
 </template>
 
 <style scoped></style>
