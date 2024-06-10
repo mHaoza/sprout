@@ -3,6 +3,15 @@ import frontMatter from 'front-matter'
 
 const md = markdownIt()
 
+// 自定义插件：替换图片标记
+md.renderer.rules.image = (tokens, idx) => {
+  const token = tokens[idx]
+  const src = token.attrGet('src')
+  const alt = token.content
+
+  return `<div class="custom-image" data-src="${src}" data-alt="${alt}" ></div>`
+}
+
 export function parseMarkdown<T = any>(text: string): { params: Partial<T>, html: string } {
   if (!text) {
     return { params: {}, html: '' }
@@ -23,9 +32,7 @@ export function replaceImageLinks(markdown: string, mdPath = '') {
     if (group.startsWith('http')) {
       return match // 如果是绝对路径则不做替换
     } else {
-      console.log('mdPath + group', decodeURIComponent(mdPath + group))
-
-      return match.replace(group, mdPath + group)
+      return match.replace(group, mdPath + group).replace('./', '')
     }
   })
 

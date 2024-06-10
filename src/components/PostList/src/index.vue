@@ -4,8 +4,8 @@ import { useRoute } from 'vue-router'
 import dayjs from 'dayjs'
 import { Bookmark, Calendar, Tag } from 'lucide-vue-next'
 import { allPosts } from '@/utils/post'
-import { parseMarkdown } from '@/utils/markdown'
 import type { PostFileData } from '@/types'
+import MarkdownRender from '@/components/MarkdownRender'
 
 const route = useRoute()
 
@@ -75,7 +75,7 @@ onMounted(() => {
       @mouseenter="calcMask($event.target as HTMLElement)"
     >
       <div class="text-xl mb-2 italic">{{ post.data.title }}</div>
-      <div class="max-w-full" v-html="parseMarkdown(post.data.description || '').html" />
+      <MarkdownRender class="max-w-full" :md-text="post.data.description ?? ''" />
       <div class="mt-2 flex justify-start">
         <Calendar class="w-5 mr-1" />
         <span>{{ dayjs(post.data.date).format('YYYY-MM-DD') }}</span>
