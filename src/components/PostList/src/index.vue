@@ -4,7 +4,6 @@ import { useRoute } from 'vue-router'
 import dayjs from 'dayjs'
 import { Bookmark, Calendar, Tag } from 'lucide-vue-next'
 import { allPosts } from '@/utils/post'
-import type { PostFileData } from '@/types'
 import MarkdownRender from '@/components/MarkdownRender'
 
 const route = useRoute()
@@ -14,18 +13,6 @@ const postList = computed(() => {
     return post.filePath.startsWith(`/posts${route.path}`)
   })
 })
-
-function getPostPath(post: PostFileData) {
-  if (post.filePath.startsWith('/posts/life')) {
-    return `life/${post.fileName.replace('.md', '')}`
-  }
-
-  if (post.filePath.startsWith('/posts/skill')) {
-    return `skill/${post.fileName.replace('.md', '')}`
-  }
-
-  return '/404'
-}
 
 const mask = reactive({
   height: 0,
@@ -58,20 +45,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    class="mask pointer-events-none absolute left-0 top-0 w-full transform rounded transition-all duration-300 ease-in-out"
-    :style="{
-      height: `${mask.height}px`,
-      transform: `translateY(${mask.top}px)`,
-    }"
-  />
-  <ul>
+  <ul class="max-w-5xl mx-auto relative">
+    <div
+      class="mask pointer-events-none absolute left-0 top-0 right-0 transform rounded transition-all duration-300 ease-in-out"
+      :style="{
+        height: `${mask.height}px`,
+        transform: `translateY(${mask.top}px)`,
+      }"
+    />
     <li
-      v-for="post in postList"
+      v-for="post in [...postList, ...postList, ...postList]"
       :key="post.filePath"
       ref="itemRef"
       class="[&:nth-child(n+2)]:mt-2 cursor-pointer p-4"
-      @click="$router.push(getPostPath(post))"
+      @click="$router.push(`post/${post.fileName.replace('.md', '')}`)"
       @mouseenter="calcMask($event.target as HTMLElement)"
     >
       <div class="text-xl mb-2 italic">{{ post.data.title }}</div>

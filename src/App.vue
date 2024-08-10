@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import { onMounted } from 'vue'
-import Side from '@/components/Side'
 
 import themeList from '@/utils/theme'
+import Header from '@/components/Header'
 
 onMounted(() => {
   const theme = themeList[0]
@@ -15,11 +15,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <Side />
-
-  <div class="page">
-    <RouterView />
-  </div>
+  <Header />
+  <!-- <Banner /> -->
+  <main class="mx-auto md:max-w-screen-lg px-4 py-12 tracking-wide">
+    <RouterView class="mt-24" />
+  </main>
 </template>
 
-<style scoped></style>
+<style>
+#app {
+  width: 100%;
+}
+</style>

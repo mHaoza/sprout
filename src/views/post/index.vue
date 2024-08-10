@@ -8,10 +8,8 @@ import MarkdownRender from '@/components/MarkdownRender'
 const route = useRoute()
 
 const postData = computed(() => {
-  const { postName, postDir } = route.params as { postName: string, postDir: string }
-  return allPosts.find(
-    item => item.fileName.endsWith(`${postName}.md`) && item.filePath.startsWith(`/posts/${postDir}`),
-  )
+  const { postName } = route.params as { postName: string }
+  return allPosts.find(item => item.fileName.endsWith(`${postName}.md`))
 })
 
 const mdText = ref('')

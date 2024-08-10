@@ -4,19 +4,24 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: `/:postDir(life|skill)?`,
-      name: 'post-list',
-      component: () => import('@/components/PostList'),
+      path: '/',
+      name: 'home',
+      component: () => import('@/views/home/index.vue'),
     },
     {
-      path: `/:postDir(life|skill)/:postName`,
+      path: '/post/:postName',
       name: 'post',
-      component: () => import('@/components/Post'),
+      component: () => import('@/views/post/index.vue'),
     },
     {
       path: '/anime',
       name: 'anime',
       component: () => import('@/views/anime/index.vue'),
+    },
+    {
+      path: '/demo',
+      name: 'demo',
+      component: () => import('@/views/demo/index.vue'),
     },
     {
       path: '/about',
