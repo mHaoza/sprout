@@ -40,5 +40,10 @@ export const cdn = importToCDN({
       var: 'dayjs',
       path: 'dayjs.min.js',
     },
+    {
+      name: 'nprogress',
+      var: 'NProgress',
+      path: 'nprogress.js',
+    },
   ],
 })

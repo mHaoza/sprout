@@ -12,17 +12,20 @@ const navList = [
 </script>
 
 <template>
-  <header class="fixed top-0 left-0 right-0 z-50 w-screen transition-[top]" :class="{ scrolled: y > 200 }">
-    <nav class="flex justify-center items-end pb-3 h-24 bg-[var(--theme-background-color)]">
-      <RouterLink to="/" class="absolute top-4 text-2xl">mHaoza</RouterLink>
+  <header class="fixed top-0 left-0 right-0 z-50 flex flex-col justify-center items-center w-screen h-24 transition-[top] bg-[var(--theme-bg-color)] bg-[url('@/assets/textures/frosted.png')]" :class="{ 'slide-down': y > 100 }">
+    <RouterLink to="/" class="header-logo text-2xl mb-2 transition-all">私の</RouterLink>
+    <nav class="header-nav">
       <RouterLink v-for="item in navList" :key="item.path" :to="item.path" class="px-2 py-1 mx-3 hover:text-[var(--theme-color)]">{{ item.name }}</RouterLink>
     </nav>
   </header>
 </template>
 
-<style scoped>
-.scrolled {
-  top: -43px;
+<style lang="postcss" scoped>
+.slide-down {
+  top: -45px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* .header-logo {
+    display: none;
+  } */
 }
 </style>

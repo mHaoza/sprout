@@ -1,47 +1,7 @@
 @import url('./tailwind.css');
 @layer components {
-  :root {
-    --font-color: #374151;
-    /* scrollbar-gutter: stable; */
-    overflow-y: overlay;
-    cursor: url('@/assets/images/cursor.png'), default;
-  }
   html {
     @apply overflow-x-hidden text-gray-800;
   }
 
-  body {
-    background-color: var(--theme-background-color);
-  }
-
-  body::after {
-    @apply fixed top-0 left-0 w-screen h-screen;
-    background-image: url('@/assets/textures/frosted.png');
-    content: '';
-    z-index: -2;
-  }
-  body::before {
-    @apply fixed top-0 left-0 w-screen h-screen bg-fixed bg-center bg-cover bg-no-repeat;
-    content: '';
-    z-index: -1;
-    opacity: 0.2;
-    background-image: var(--background-image);
-    background-size: 60vw auto;
-    background-position: 40vw center;
-    transition: background-image 0.8s;
-  }
-
-
-  /* custom scrollBar */
-  ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-  }
-  ::-webkit-scrollbar-thumb {
-    border-radius: 3px;
-    background-color: var(--theme-color);
-  }
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
 }
