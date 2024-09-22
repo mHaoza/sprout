@@ -6,12 +6,13 @@
   "author": "mHaoza",
   "scripts": {
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" --",
+    "build": "npm-run-all -p type-check \"build-only {@}\" -s copy-index --",
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "copy-index": "node scripts/copy-index.js",
     "update:posts": "node scripts/update-posts.js",
     "prepare": "npx simple-git-hooks"
   },
