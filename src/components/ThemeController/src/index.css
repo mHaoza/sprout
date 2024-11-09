@@ -1,22 +1,32 @@
-body {
-  background-color: var(--theme-bg-color);
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+  background-color: #FFFBF0;
+  .bg-color-mask {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--theme-bg-color);
+    transition: background-color 0.8s;
+    opacity: 0.1;
+    z-index: 999;
+  }
 }
 
-*::selection {
-  background-color: transparent;
-  color: var(--theme-color);
-}
-
-body::after {
+.bg::after {
   @apply fixed top-0 left-0 w-screen h-screen;
   background-image: url('@/assets/textures/frosted.png');
   content: '';
-  z-index: -1;
 }
-body::before {
+.bg::before {
   @apply fixed top-0 left-0 w-screen h-screen bg-fixed bg-center bg-cover bg-no-repeat;
   content: '';
-  z-index: -2;
   opacity: 1;
   background-image: var(--background-image);
   background-size: 16vw auto;
@@ -25,6 +35,10 @@ body::before {
 }
 
 
+*::selection {
+  background-color: transparent;
+  color: var(--theme-color);
+}
 /* custom scrollBar */
 ::-webkit-scrollbar {
   width: 5px;
