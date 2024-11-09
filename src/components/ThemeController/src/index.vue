@@ -18,6 +18,9 @@ function setTheme(theme: typeof themeList[number]) {
 </script>
 
 <template>
+  <div class="bg">
+    <div class="bg-color-mask" />
+  </div>
   <div class="theme-controller">
     <div
       class="
