@@ -1,0 +1,38 @@
+html {
+  background-color: #fffbf0;
+}
+
+html::after {
+  @apply fixed inset-0;
+  background-image: url('~/assets/textures/frosted.png');
+  content: '';
+  z-index: -1;
+}
+html::before {
+  @apply fixed inset-0 bg-fixed bg-center bg-cover bg-no-repeat;
+  content: '';
+  opacity: 1;
+  background-image: var(--theme-bg-img);
+  background-size: 16vw auto;
+  background-position: 84vw bottom;
+  transition: background-image 0.8s;
+  z-index: -1;
+}
+
+*::selection {
+  background-color: transparent;
+  color: var(--theme-color);
+}
+/* custom scrollBar */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: var(--theme-color);
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}

@@ -1,0 +1,32 @@
+{
+  "name": "sprout",
+  "type": "module",
+  "private": true,
+  "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@vueuse/core": "^13.6.0",
+    "color": "^5.0.0",
+    "lunar-typescript": "^1.8.0",
+    "nuxt": "^4.0.3",
+    "vue": "^3.5.18",
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^5.1.0",
+    "@nuxt/eslint": "^1.7.1",
+    "@nuxt/eslint-config": "^1.7.1",
+    "@unocss/eslint-plugin": "^66.4.1",
+    "@unocss/nuxt": "^66.4.1",
+    "eslint": "^9.32.0",
+    "eslint-plugin-format": "^1.0.1",
+    "typescript": "^5.9.2",
+    "unocss": "^66.4.1"
+  }
+}

@@ -1,0 +1,12 @@
+@import './reset.css';
+
+html {
+  overflow: auto;
+}
+
+body {
+  height: 100vh;
+  width: 100vw;
+  overflow: auto;
+  overflow-y: scroll; /* 始终显示纵向滚动条，避免抖动 */
+}
