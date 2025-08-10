@@ -1,0 +1,127 @@
+# Sprout 项目 AI 提示词配置
+
+## 项目上下文
+你正在协助开发一个名为 "Sprout" 的现代 Web 应用项目。
+
+### 技术栈
+- **框架**: Nuxt.js 4.x + Vue 3 + TypeScript
+- **样式**: UnoCSS (原子化 CSS)
+- **代码检查**: ESLint (@antfu/eslint-config)
+- **包管理**: pnpm
+- **工具库**: VueUse (@vueuse/core)
+
+### 项目特点
+- 使用 Vue 3 组合式 API 和 `<script setup>` 语法
+- 支持主题切换功能
+- 包含导航和搜索功能
+- 响应式设计，支持移动端
+- 严格的 TypeScript 类型检查
+
+## 编码规范要求
+
+### 命名规范
+- **文件/文件夹**: 小写 + 连字符 (kebab-case)
+- **Vue组件**: PascalCase 
+- **变量/函数**: camelCase
+- **常量**: UPPER_SNAKE_CASE
+- **CSS类名**: kebab-case
+- **TypeScript类型**: PascalCase
+- **API函数**: 以 `fetch` 开头
+
+### 代码风格
+- 优先使用 Vue 3 组合式 API
+- 使用 `<script setup lang="ts">` 语法
+- 严格使用 TypeScript，避免 `any` 类型
+- 优先使用 UnoCSS 原子化类，避免写自定义 CSS
+- 遵循 ESLint 规则（@antfu/eslint-config）
+
+## 开发指导
+
+### 当用户要求创建新组件时：
+1. 确认组件放置位置（pages/ 或 components/）
+2. 使用 `<script setup lang="ts">` 语法
+3. 添加适当的 TypeScript 类型定义
+4. 使用 UnoCSS 类进行样式设计
+5. 遵循项目的命名规范
+
+### 当用户要求修改样式时：
+1. 优先使用 UnoCSS 原子化类
+2. 如需自定义样式，使用 `<style scoped>`
+3. 主题相关样式使用 CSS 变量
+4. 确保响应式设计兼容性
+
+### 当用户要求添加功能时：
+1. 分析功能需求，确定实现方案
+2. 考虑组件的可复用性
+3. 使用 VueUse 工具库提供的组合式函数
+4. 添加适当的类型定义和错误处理
+
+### 当用户要求重构代码时：
+1. 保持原有功能不变
+2. 遵循项目的编码规范
+3. 优化代码结构和性能
+4. 更新相关的类型定义
+
+## 响应格式
+
+### 创建文件时：
+- 使用完整的文件路径
+- 包含必要的导入语句
+- 添加适当的注释说明
+- 确保代码符合 ESLint 规则
+
+### 修改文件时：
+- 保持原有代码风格
+- 最小化修改范围
+- 添加必要的类型检查
+- 测试修改后的功能
+
+### 解释代码时：
+- 说明代码的功能和用途
+- 解释关键的实现逻辑
+- 提供使用示例
+- 指出可能的注意事项
+
+## 常用模式
+
+### Vue 组件模板
+```vue
+<template>
+  <div class="组件根容器的UnoCSS类">
+    <!-- 模板内容 -->
+  </div>
+</template>
+
+<script setup lang="ts">
+// 导入部分
+import { ref, computed } from 'vue'
+
+// 类型定义
+interface Props {
+  // 属性定义
+}
+
+// 组件逻辑
+const props = defineProps<Props>()
+</script>
+
+<style scoped>
+/* 仅在必要时添加自定义样式 */
+</style>
+```
+
+### TypeScript 接口定义
+```ts
+// 使用 PascalCase 命名
+interface NavItem {
+  id: string
+  name: string
+  url: string
+  icon?: string
+}
+
+// 导出类型供其他文件使用
+export type { NavItem }
+```
+
+记住：始终保持代码的整洁性、可读性和可维护性，遵循项目的规范和最佳实践。
