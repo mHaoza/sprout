@@ -27,10 +27,6 @@ export default defineConfig<PresetUnoTheme>({
   presets: [
     presetWind3({ dark: 'class' }),
     presetDefault(),
-    presetIcons({
-      prefix: 'i-',
-      warn: true,
-      cdn: 'https://esm.sh/',
-    }),
+    presetIcons({ prefix: 'i-', warn: true }),
   ],
 })

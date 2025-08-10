@@ -3,8 +3,7 @@ import { useLocalStorage } from '@vueuse/core'
 import Color from 'color'
 import { Lunar } from 'lunar-typescript'
 import { ref } from 'vue'
-import { themeList } from './themeList'
-import './index.css'
+import { themeList } from './theme-list'
 
 const themeGroupList = Array.from({ length: Math.ceil(themeList.length / 6) }, (_, i) => {
   return themeList.slice(i * 6, i * 6 + 6)
