@@ -2,6 +2,13 @@ html {
   background-color: #fffbf0;
 }
 
+body {
+  height: 100vh;
+  width: 100%;
+  overflow: auto;
+  overflow-y: scroll; /* 始终显示纵向滚动条，避免抖动 */
+}
+
 html::after {
   @apply fixed inset-0;
   background-image: url('~/assets/textures/frosted.png');
