@@ -90,18 +90,18 @@ onMounted(() => {
           <!-- 分类筛选 -->
           <div class="mb-8">
             <h3 class="mb-3 flex items-center gap-2 text-sm text-gray-700 font-medium">
-              <span class="h-4 w-1 rounded-full bg-[#7F7FCF]" />
+              <span class="h-4 w-1 rounded-full bg-[var(--theme-primary-color)]" />
               分类选择
             </h3>
             <div class="space-y-2">
               <button
                 v-for="category in allCategories"
                 :key="category"
-                class="w-full flex items-center gap-2 border rounded-lg px-3 py-2 text-left text-sm"
+                class="w-full flex items-center gap-2 border rounded-lg px-3 py-2 text-left text-sm transition-all duration-200"
                 :class="[
                   selectedCategory.includes(category)
-                    ? 'bg-[#7F7FCF]/10 text-[#7F7FCF] border-[#7F7FCF]/30'
-                    : 'text-gray-600 border-transparent',
+                    ? 'bg-[var(--theme-background-tone)] text-[var(--theme-primary-color)] border-[var(--theme-primary-color)]/30 shadow-sm'
+                    : 'text-gray-600 border-transparent hover:bg-[var(--theme-background-tone)]',
                 ]"
                 @click="selectedCategory = [category]"
               >
@@ -118,7 +118,7 @@ onMounted(() => {
           <div class="mb-6">
             <div class="mb-3 flex items-center justify-between">
               <h3 class="flex items-center gap-2 text-sm text-gray-700 font-medium">
-                <span class="h-4 w-1 rounded-full bg-[#8FB171]" />
+                <span class="h-4 w-1 rounded-full bg-[var(--theme-accent-color)]" />
                 标签筛选
               </h3>
               <button
@@ -133,11 +133,11 @@ onMounted(() => {
               <button
                 v-for="tag in allTags.slice(0, 20)"
                 :key="tag"
-                class="flex items-center gap-1.5 border rounded-full px-3 py-1 text-xs"
+                class="flex items-center gap-1.5 border rounded-full px-3 py-1 text-xs transition-all duration-200 hover:scale-105"
                 :class="[
                   selectedTags.includes(tag)
-                    ? 'bg-[#8FB171]/10 text-[#8FB171] border-[#8FB171]/30'
-                    : 'bg-gray-100/60 text-gray-600 border-transparent',
+                    ? 'bg-[var(--theme-background-tone)] text-[var(--theme-accent-color)] border-[var(--theme-accent-color)]/30 shadow-sm'
+                    : 'bg-gray-100/60 text-gray-600 border-transparent hover:bg-[var(--theme-highlight-hue)]',
                 ]"
                 @click="toggle(tag)"
               >
@@ -150,7 +150,7 @@ onMounted(() => {
           <!-- 结果统计 -->
           <div class="border-t border-gray-100 pt-4">
             <div class="text-sm text-gray-600">
-              <span class="text-gray-800 font-medium">{{ filteredList.length }}</span> 个站点
+              <span class="text-[var(--theme-text-shade)] font-medium">{{ filteredList.length }}</span> 个站点
               <span class="text-gray-400">/ {{ navList.length }} 总计</span>
             </div>
           </div>
@@ -163,14 +163,14 @@ onMounted(() => {
         <div class="mb-4 flex items-center gap-4">
           <div class="flex items-center gap-2">
             <span class="text-sm text-gray-500">当前:</span>
-            <span class="rounded bg-[#7F7FCF]/10 px-2 py-1 text-xs text-[#7F7FCF]">
+            <span class="rounded bg-[var(--theme-background-tone)] px-2 py-1 text-xs text-[var(--theme-primary-color)]">
               {{ selectedCategory[0] || '全部分类' }}
             </span>
             <span v-if="selectedTags.length > 0" class="text-xs text-gray-400">+</span>
             <span
               v-for="tag in selectedTags.slice(0, 3)"
               :key="tag"
-              class="flex items-center gap-1 rounded bg-[#8FB171]/10 px-2 py-1 text-xs text-[#8FB171]"
+              class="flex items-center gap-1 rounded bg-[var(--theme-background-tone)] px-2 py-1 text-xs text-[var(--theme-accent-color)]"
             >
               <i class="i-heroicons-tag text-xs opacity-70" />
               {{ tag }}
@@ -188,22 +188,23 @@ onMounted(() => {
             :key="`${nav.name}-${nav.link}`"
             :href="nav.link"
             target="_blank"
-            class="block border border-gray-200/60 rounded-lg p-4"
+            class="group block border border-gray-200/60 rounded-lg p-4 transition-all duration-300 hover:scale-102 hover:border-[var(--theme-primary-color)] hover:bg-[var(--theme-background-tone)] hover:shadow-lg hover:-translate-y-1"
+
             @mouseenter="onEnter(nav)"
             @mouseleave="onLeave"
           >
             <!-- 站点图标 -->
-            <div class="mx-auto mb-3 h-8 w-8 flex items-center justify-center rounded-lg bg-gray-100/60 text-sm text-gray-600 font-semibold">
+            <div class="mx-auto mb-3 h-8 w-8 flex items-center justify-center rounded-lg bg-gray-100/60 text-sm text-gray-600 font-semibold transition-all duration-300 group-hover:scale-110 group-hover:bg-[var(--theme-background-tone)] group-hover:text-[var(--theme-primary-color)]">
               {{ nav.name.charAt(0) }}
             </div>
 
             <!-- 站点名称 -->
-            <h3 class="line-clamp-2 mb-1 text-center text-sm text-gray-800 font-medium">
+            <h3 class="line-clamp-2 mb-1 text-center text-sm text-gray-800 font-medium transition-colors duration-300 group-hover:text-[var(--theme-primary-color)]">
               {{ nav.name }}
             </h3>
 
             <!-- 分类信息 -->
-            <p class="text-center text-xs text-gray-500">
+            <p class="text-center text-xs text-gray-500 transition-colors duration-300 group-hover:text-[var(--theme-accent-color)]">
               {{ nav.category[0] }}
             </p>
           </a>
@@ -231,18 +232,19 @@ onMounted(() => {
       <div
         v-if="hovered.item"
         class="fixed z-50 max-w-xs overflow-hidden border border-gray-200/60 rounded-lg bg-white/80 shadow-lg backdrop-blur-sm"
+
         :style="{ left: `${hovered.x}px`, top: `${hovered.y}px` }"
       >
         <div class="p-4">
           <div class="mb-3 flex items-start gap-3">
-            <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-gray-100/60 text-gray-600 font-semibold">
+            <div class="h-10 w-10 flex items-center justify-center rounded-lg bg-[var(--theme-background-tone)] text-[var(--theme-primary-color)] font-semibold">
               {{ hovered.item?.name.charAt(0) }}
             </div>
             <div class="min-w-0 flex-1">
               <h4 class="truncate text-gray-900 font-semibold">
                 {{ hovered.item?.name }}
               </h4>
-              <p class="text-xs text-gray-500">
+              <p class="text-xs text-[var(--theme-accent-color)]">
                 {{ hovered.item?.category.join(' / ') }}
               </p>
             </div>
@@ -254,7 +256,7 @@ onMounted(() => {
             <span
               v-for="tag in hovered.item?.tags.slice(0, 4)"
               :key="tag"
-              class="flex items-center gap-1 rounded bg-gray-100 px-2 py-1 text-xs text-gray-600"
+              class="flex items-center gap-1 rounded bg-[var(--theme-highlight-hue)] px-2 py-1 text-xs text-[var(--theme-accent-color)]"
             >
               <i class="i-heroicons-tag text-xs opacity-70" />
               {{ tag }}

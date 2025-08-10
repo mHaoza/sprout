@@ -38,8 +38,8 @@ function isActive(path: string) {
         v-for="item in navList"
         :key="item.path"
         :to="item.path"
-        class="mx-3 px-2 py-1 hover:text-[var(--theme-color)]"
-        :class="{ 'text-[var(--theme-color)]': isActive(item.path) }"
+        class="mx-3 px-2 py-1 hover:text-[var(--theme-primary-color)] transition-colors duration-200"
+        :class="{ 'text-[var(--theme-primary-color)]': isActive(item.path) }"
       >
         {{ item.name }}
       </NuxtLink>

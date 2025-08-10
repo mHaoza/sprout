@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     // },
   },
   modules: ['@unocss/nuxt', '@nuxt/eslint'],
+  ignore: ['app/pages/**/modules/**'],
   hooks: {
     'pages:extend': function (pages) {
       // 添加首页路由

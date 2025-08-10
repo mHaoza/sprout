@@ -185,7 +185,7 @@ watch(results, () => nextTick(computeNumCols))
             <input
               ref="inputRef"
               v-model="state.query"
-              class="w-full rd-md bg-white/80 px-3 py-2 text-gray-900 transition-all duration-200 placeholder:text-gray-500 focus:(outline-none ring-2 ring-offset-0 ring-[var(--theme-color)])"
+              class="w-full rd-md bg-white/80 px-3 py-2 text-gray-900 transition-all duration-200 placeholder:text-gray-500 focus:(outline-none ring-2 ring-offset-0 ring-[var(--theme-primary-color)])"
               placeholder="搜索站点或描述，支持 Ctrl + 数字快捷打开"
               type="text"
             >
@@ -197,12 +197,12 @@ watch(results, () => nextTick(computeNumCols))
               :key="nav.link + idx"
               :class="[
                 'relative rd-lg px-3 py-2 cursor-pointer flex flex-col gap-1 border border-white/60 transition-colors duration-150 bg-white/60 hover:bg-white/80',
-                idx === state.highlightedIndex ? 'ring-2 ring-[var(--theme-color)] ring-offset-0' : '',
+                idx === state.highlightedIndex ? 'ring-2 ring-[var(--theme-primary-color)] ring-offset-0' : '',
               ].join(' ')"
               @mouseenter="state.highlightedIndex = idx"
               @click="onClickItem(idx)"
             >
-              <div v-if="idx < 9" class="absolute right-2 top-2 rd-md bg-[var(--theme-color)]/80 px-1.5 py-0.5 text-xs text-white">
+              <div v-if="idx < 9" class="absolute right-2 top-2 rd-md bg-[var(--theme-primary-color)]/80 px-1.5 py-0.5 text-xs text-white">
                 {{ idx + 1 }}
               </div>
               <div class="text-gray-900 font-semibold">

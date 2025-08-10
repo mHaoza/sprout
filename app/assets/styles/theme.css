@@ -1,3 +1,18 @@
+/* 24节气主题样式系统 - 基于传统色彩 */
+:root {
+  /* 默认主题变量 - 立春主题 */
+  --theme-primary-color: #7fb069;
+  --theme-accent-color: #c7cedb;
+  --theme-background-tone: #f0f4ec;
+  --theme-text-shade: #2d3748;
+  --theme-highlight-hue: #e6fffa;
+
+  /* 主题衍生变量 */
+  --theme-shadow: 0 4px 20px rgba(127, 176, 105, 0.15);
+  --theme-border: 1px solid var(--theme-primary-color);
+  --theme-hover-opacity: 0.8;
+}
+
 html {
   background-color: #fffbf0;
 }
@@ -27,10 +42,11 @@ html::before {
 }
 
 *::selection {
-  background-color: transparent;
-  color: var(--theme-color);
+  background-color: var(--theme-highlight-hue);
+  color: var(--theme-primary-color);
 }
-/* custom scrollBar */
+
+/* 自定义滚动条样式 - 基于新的主题变量 */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -38,8 +54,87 @@ html::before {
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 3px;
-  background-color: var(--theme-color);
+  background-color: var(--theme-primary-color);
+  transition: background-color 0.3s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--theme-accent-color);
 }
 ::-webkit-scrollbar-track {
   background-color: transparent;
+}
+
+/* 主题实用样式类 */
+.theme-primary {
+  color: var(--theme-primary-color);
+}
+
+.theme-primary-bg {
+  background-color: var(--theme-primary-color);
+}
+
+.theme-accent {
+  color: var(--theme-accent-color);
+}
+
+.theme-accent-bg {
+  background-color: var(--theme-accent-color);
+}
+
+.theme-text {
+  color: var(--theme-text-shade);
+}
+
+.theme-text-bg {
+  background-color: var(--theme-text-shade);
+}
+
+.theme-highlight {
+  color: var(--theme-highlight-hue);
+}
+
+.theme-highlight-bg {
+  background-color: var(--theme-highlight-hue);
+}
+
+.theme-border {
+  border: var(--theme-border);
+}
+
+.theme-shadow {
+  box-shadow: var(--theme-shadow);
+}
+
+/* 主题动画和过渡效果 */
+.theme-transition {
+  transition: all 0.3s ease;
+}
+
+.theme-hover:hover {
+  opacity: var(--theme-hover-opacity);
+  transform: translateY(-2px);
+  box-shadow: var(--theme-shadow);
+}
+
+/* 节气特色装饰元素 */
+.seasonal-decoration {
+  position: relative;
+}
+
+.seasonal-decoration::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  background: linear-gradient(45deg, var(--theme-primary-color), var(--theme-accent-color));
+  border-radius: 8px;
+  z-index: -1;
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+}
+
+.seasonal-decoration:hover::before {
+  opacity: 0.2;
 }
