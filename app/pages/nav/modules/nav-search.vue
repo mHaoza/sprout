@@ -181,14 +181,17 @@ watch(results, () => nextTick(computeNumCols))
     <transition name="fade">
       <div v-if="state.open" class="fixed inset-0 z-100 i-flex-center bg-black/20 backdrop-blur-sm" @click.self="closePalette">
         <div class="max-w-[92vw] w-200 overflow-hidden border border-white/60 rd-2xl bg-white/80 shadow-xl backdrop-blur-xl">
-          <div class="border-b border-white/60 bg-white/60 px-4 py-3">
-            <input
-              ref="inputRef"
-              v-model="state.query"
-              class="w-full rd-md bg-white/80 px-3 py-2 text-gray-900 transition-all duration-200 placeholder:text-gray-500 focus:(outline-none ring-2 ring-offset-0 ring-[var(--theme-primary-color)])"
-              placeholder="搜索站点或描述，支持 Ctrl + 数字快捷打开"
-              type="text"
-            >
+          <div class="border-b border-[var(--theme-primary-color)]/20 bg-white/70 px-4 py-3">
+            <div class="relative">
+              <i class="i-heroicons-magnifying-glass absolute left-3 top-1/2 text-icon text-[var(--theme-primary-color)]/80 -translate-y-1/2" />
+              <input
+                ref="inputRef"
+                v-model="state.query"
+                class="w-full rd-md bg-white/80 py-2 pl-9 pr-3 text-gray-900 transition-all duration-200 placeholder:text-gray-500 focus:(outline-none ring-2 ring-offset-0 ring-[var(--theme-primary-color)])"
+                placeholder="搜索站点、描述、标签（Ctrl+K 打开/关闭；Ctrl+数字快速打开）"
+                type="text"
+              >
+            </div>
           </div>
 
           <div ref="gridRef" class="grid grid-cols-1 max-h-90 gap-2 overflow-auto p-2 md:grid-cols-3 sm:grid-cols-2">
@@ -196,8 +199,8 @@ watch(results, () => nextTick(computeNumCols))
               v-for="(nav, idx) in results"
               :key="nav.link + idx"
               :class="[
-                'relative rd-lg px-3 py-2 cursor-pointer flex flex-col gap-1 border border-white/60 transition-colors duration-150 bg-white/60 hover:bg-white/80',
-                idx === state.highlightedIndex ? 'ring-2 ring-[var(--theme-primary-color)] ring-offset-0' : '',
+                'relative rd-lg px-3 py-2 cursor-pointer flex flex-col gap-1 border border-white/50 transition-all duration-150 bg-white/60 hover:bg-white/80 hover:shadow-sm',
+                idx === state.highlightedIndex ? 'ring-1 ring-[var(--theme-primary-color)] ring-offset-0' : '',
               ].join(' ')"
               @mouseenter="state.highlightedIndex = idx"
               @click="onClickItem(idx)"
@@ -208,8 +211,16 @@ watch(results, () => nextTick(computeNumCols))
               <div class="text-gray-900 font-semibold">
                 {{ nav.name }}
               </div>
-              <div class="text-xs text-gray-600">
-                {{ nav.category.join(' / ') }} · {{ nav.tags.join(' / ') }}
+              <div class="flex items-center gap-2 text-xs text-gray-600">
+                <span class="inline-flex items-center gap-1">
+                  <i class="i-heroicons-folder-open text-[12px] text-[var(--theme-primary-color)]/90" />
+                  <span class="text-gray-700">{{ nav.category.join(' / ') }}</span>
+                </span>
+                <span class="opacity-30">·</span>
+                <span class="inline-flex items-center gap-1">
+                  <i class="i-heroicons-tag text-[12px] text-[var(--theme-accent-color)]/90" />
+                  <span class="text-gray-700">{{ nav.tags.slice(0, 3).join(' / ') }}</span>
+                </span>
               </div>
               <div class="text-xs text-gray-600">
                 {{ nav.desc }}
