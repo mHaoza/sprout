@@ -39,8 +39,9 @@ const displayTags = computed(() => props.nav.tags.slice(0, 2))
 </script>
 
 <template>
-  <article
+  <div
     class="group relative cursor-pointer overflow-hidden border border-gray-200/60 rounded-lg bg-white/90 shadow-sm backdrop-blur-sm transition-all duration-200 hover:border-[var(--theme-primary-color)]/30 hover:shadow-md"
+    :title="`${nav.name} - ${nav.desc}`"
     @click="handleCardClick"
   >
     <!-- 主要内容区域 -->
@@ -107,7 +108,7 @@ const displayTags = computed(() => props.nav.tags.slice(0, 2))
         </div>
       </div>
     </div>
-  </article>
+  </div>
 </template>
 
 <style scoped>
