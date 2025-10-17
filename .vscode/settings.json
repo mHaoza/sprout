@@ -4,7 +4,8 @@
     "tsconfig.json": "tsconfig.*.json, env.d.ts",
     "nuxt.config.ts": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
     "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .oxlint*, oxlint*, .prettier*, prettier*, .editorconfig",
-    ".gitignore": ".gitattributes"
+    ".gitignore": ".gitattributes",
+    "Dockerfile": ".dockerignore, docker-compose.yml"
   },
 
   // Disable the default formatter, use eslint instead

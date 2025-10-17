@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: sprout
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: ["npm", "run", "start"]
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "5000:3000"
+    restart: unless-stopped
+
+networks:
+  default:
+    name: sprout-net
+
