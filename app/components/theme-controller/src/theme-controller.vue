@@ -161,10 +161,10 @@ function selectTheme(theme: typeof themeList[number]) {
   setTheme(theme)
 }
 
-function resetToAutoTheme() {
-  selectedTheme.value = null
-  init()
-}
+// function resetToAutoTheme() {
+//   selectedTheme.value = null
+//   init()
+// }
 
 // 组件卸载时清理事件监听器
 onUnmounted(() => {
@@ -250,7 +250,7 @@ onUnmounted(() => {
                     </span>
                   </h2>
                   <p class="mt-1 text-sm text-[var(--panel-text-shade)] opacity-80">
-                    🍃 依据传统节气，营造诗意氛围，感受四季变迁之美
+                    🍃 依据传统节气，营造诗意氛围，感受四季变迁
                   </p>
                 </div>
               </div>
@@ -313,11 +313,10 @@ onUnmounted(() => {
                     :class="[
                       'group relative cursor-pointer overflow-hidden rounded-xl',
                       'shadow-lg transition-all duration-300',
-                      'active:scale-95 hover:scale-105 focus:outline-none',
+                      'focus:outline-none',
                       'focus:ring-2 focus:ring-offset-2 focus:ring-[var(--theme-primary-color)]',
                       'border-2 hover:border-[var(--panel-border-light)]',
                       'hover:shadow-[0_12px_24px_var(--panel-primary-lighter),0_6px_12px_rgba(0,0,0,0.1)]',
-                      'hover:-translate-y-1 hover:scale-102',
                       theme.name === selectedTheme
                         ? 'ring-2 ring-[var(--theme-primary-color)] shadow-[var(--theme-primary-color)]/30'
                         : 'ring-2 ring-transparent shadow-gray-200/50 hover:shadow-gray-300/60',
@@ -395,7 +394,12 @@ onUnmounted(() => {
                       'animate-pulse',
                     ].join(' ')"
                   />
-                  <span class="text-[var(--panel-text-shade)]">当前主题: <strong>{{ selectedTheme || '自动匹配节气' }}</strong></span>
+                  <span class="text-[var(--panel-text-shade)]">
+                    当前主题:
+                    <strong>
+                      {{ selectedTheme || `${selectedThemeData?.name ? `${selectedThemeData.name}(自动匹配)` : ''}` }}
+                    </strong>
+                  </span>
                 </div>
                 <div class="hidden items-center gap-2 text-xs sm:flex">
                   <div class="i-heroicons-information-circle h-4 w-4 text-[var(--panel-primary-color)]" />
@@ -403,7 +407,7 @@ onUnmounted(() => {
                 </div>
               </div>
               <div class="flex items-center gap-3">
-                <button
+                <!-- <button
                   v-if="selectedTheme"
                   :class="[
                     'flex items-center gap-2 rounded-lg px-4 py-2',
@@ -417,7 +421,7 @@ onUnmounted(() => {
                 >
                   <div class="i-heroicons-arrow-path h-4 w-4" />
                   <span>恢复自动</span>
-                </button>
+                </button> -->
                 <div class="text-xs text-[var(--panel-text-shade)] font-medium opacity-70">
                   {{ selectedTheme ? '🎨 手动选择' : '🤖 自动模式' }}
                 </div>
