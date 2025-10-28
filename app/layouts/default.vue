@@ -3,7 +3,7 @@
 <template>
   <div class="default-layout">
     <Header />
-    <main class="container mx-auto pt-40 tracking-wide">
+    <main class="p-4 pt-24 tracking-wide">
       <slot />
     </main>
   </div>
