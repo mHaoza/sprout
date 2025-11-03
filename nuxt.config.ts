@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite'
 import { defineNuxtConfig } from 'nuxt/config'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
@@ -14,7 +15,9 @@ export default defineNuxtConfig({
   // ssr: false,
   devServer: { host: 'localhost' },
   vite: {
-    plugins: [],
+    plugins: [
+      tailwindcss() as any,
+    ],
     // clearScreen: false,
     // 启用环境变量
     envPrefix: ['VITE_'],
@@ -22,7 +25,18 @@ export default defineNuxtConfig({
     //   strictPort: true,
     // },
   },
-  modules: ['@unocss/nuxt', '@nuxt/eslint'],
+  modules: ['@nuxt/eslint', 'shadcn-nuxt'],
+  shadcn: {
+    /**
+     * Prefix for all the imported component
+     */
+    prefix: '',
+    /**
+     * Directory that the component lives in.
+     * @default "./components/ui"
+     */
+    componentDir: './app/components/ui',
+  },
   ignore: ['app/pages/**/modules/**'],
   hooks: {
     'pages:extend': function (pages) {

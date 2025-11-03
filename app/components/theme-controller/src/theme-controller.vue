@@ -177,7 +177,7 @@ onUnmounted(() => {
 <template>
   <!-- 主题控制器触发按钮 -->
   <div
-    class="fixed bottom-[10vw] right-[3vw] h-16 w-16 cursor-pointer overflow-hidden border-2 border-[var(--theme-primary-color)] rounded-full opacity-0 transition-all duration-300 ease-in-out hover:scale-110 hover:opacity-100 hover:shadow-[var(--theme-primary-color)]/50 hover:shadow-lg"
+    class="fixed bottom-[10vw] right-[3vw] h-16 w-16 cursor-pointer overflow-hidden border-2 border-[--theme-primary-color] rounded-full opacity-0 transition-all duration-300 ease-in-out hover:scale-110 hover:opacity-100 hover:shadow-[--theme-primary-color]/50 hover:shadow-lg"
     @click="panelVisible = !panelVisible"
   >
     <img src="/imgs/比丢00.webp" class="h-full w-full object-cover transition-transform duration-300 hover:scale-105">
@@ -188,7 +188,7 @@ onUnmounted(() => {
     <Transition name="backdrop-fade">
       <div
         v-if="panelVisible"
-        class="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+        class="fixed z-40 bg-black/40 backdrop-blur-sm"
         @click="panelVisible = false"
       />
     </Transition>
@@ -230,26 +230,26 @@ onUnmounted(() => {
                 <div
                   :class="[
                     'h-10 w-10 flex items-center justify-center rounded-full',
-                    'bg-[var(--panel-accent-light)] shadow-inner',
+                    'bg-[--panel-accent-light] shadow-inner',
                   ].join(' ')"
                 >
                   <div
                     :class="[
-                      'title-icon i-heroicons-star-solid h-5 w-5',
-                      'text-[var(--panel-text-shade)]',
+                      'icon-[heroicons-star-solid] h-5 w-5',
+                      'text-[--panel-text-shade]',
                       'transition-transform duration-500 ease-in-out',
-                      'hover:rotate-[360deg] hover:scale-120',
+                      'hover:rotate-360 hover:scale-120',
                     ].join(' ')"
                   />
                 </div>
                 <div>
-                  <h2 class="flex items-center gap-3 text-xl text-[var(--panel-text-shade)] font-bold sm:text-2xl">
+                  <h2 class="flex items-center gap-3 text-xl text-[--panel-text-shade] font-bold sm:text-2xl">
                     二十四节气主题选择
-                    <span class="rounded-full bg-[var(--panel-background-soft)] px-3 py-1 text-sm text-[var(--panel-text-shade)] font-normal shadow-sm">
+                    <span class="rounded-full bg-[--panel-background-soft] px-3 py-1 text-sm text-[--panel-text-shade] font-normal shadow-sm">
                       {{ themeList.length }} 节气
                     </span>
                   </h2>
-                  <p class="mt-1 text-sm text-[var(--panel-text-shade)] opacity-80">
+                  <p class="mt-1 text-sm text-[--panel-text-shade] opacity-80">
                     🍃 依据传统节气，营造诗意氛围，感受四季变迁
                   </p>
                 </div>
@@ -257,13 +257,13 @@ onUnmounted(() => {
               <button
                 :class="[
                   'group h-8 w-8 flex items-center justify-center rounded-full',
-                  'bg-[var(--panel-accent-light)] text-[var(--panel-text-shade)]',
+                  'bg-[--panel-accent-light] text-[--panel-text-shade]',
                   'transition-all duration-300 hover:rotate-90 hover:scale-110',
                   'shadow-[0_2px_4px_rgba(0,0,0,0.1),inset_0_1px_2px_rgba(255,255,255,0.3)]',
                 ].join(' ')"
                 @click="panelVisible = false"
               >
-                <div class="i-heroicons-x-mark h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+                <div class="icon-[heroicons-x-mark] h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
               </button>
             </div>
           </div>
@@ -282,14 +282,14 @@ onUnmounted(() => {
                 <div
                   :class="[
                     'flex items-center gap-3 rounded-lg px-4 py-3',
-                    'border border-[var(--panel-border-lighter)]',
-                    'bg-[var(--panel-background-softer)] shadow-sm',
+                    'border border-[--panel-border-lighter]',
+                    'bg-[--panel-background-softer] shadow-sm',
                   ].join(' ')"
                 >
                   <div
                     :class="[
                       'season-indicator h-4 w-4 rounded-full shadow-md',
-                      'border-2 border-[var(--panel-highlight-soft)]',
+                      'border-2 border-[--panel-highlight-soft]',
                       'relative animate-pulse',
                     ].join(' ')"
                     :style="{ backgroundColor: season.color }"
@@ -297,13 +297,13 @@ onUnmounted(() => {
                   <h4
                     :class="[
                       'season-title text-base font-bold tracking-wide',
-                      'text-[var(--panel-text-shade)]',
+                      'text-[--panel-text-shade]',
                       'relative',
                     ].join(' ')"
                   >
                     {{ season.name }}季
                   </h4>
-                  <span class="text-sm text-[var(--panel-text-shade)] font-medium opacity-80">{{ season.description }}</span>
+                  <span class="text-sm text-[--panel-text-shade] font-medium opacity-80">{{ season.description }}</span>
                   <div class="season-divider h-px flex-1" />
                 </div>
                 <div class="grid grid-cols-2 gap-3 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 sm:gap-4">
@@ -314,11 +314,11 @@ onUnmounted(() => {
                       'group relative cursor-pointer overflow-hidden rounded-xl',
                       'shadow-lg transition-all duration-300',
                       'focus:outline-none',
-                      'focus:ring-2 focus:ring-offset-2 focus:ring-[var(--theme-primary-color)]',
-                      'border-2 hover:border-[var(--panel-border-light)]',
+                      'focus:ring-2 focus:ring-offset-2 focus:ring-[--theme-primary-color]',
+                      'border-2 hover:border-[--panel-border-light]',
                       'hover:shadow-[0_12px_24px_var(--panel-primary-lighter),0_6px_12px_rgba(0,0,0,0.1)]',
                       theme.name === selectedTheme
-                        ? 'ring-2 ring-[var(--theme-primary-color)] shadow-[var(--theme-primary-color)]/30'
+                        ? 'ring-2 ring-[--theme-primary-color] shadow-[--theme-primary-color]/30'
                         : 'ring-2 ring-transparent shadow-gray-200/50 hover:shadow-gray-300/60',
                     ].join(' ')"
                     :tabindex="0"
@@ -327,7 +327,7 @@ onUnmounted(() => {
                     @keydown.space.prevent="selectTheme(theme)"
                   >
                     <!-- 主题图片 -->
-                    <div class="theme-card-border relative aspect-[3/4] overflow-hidden">
+                    <div class="theme-card-border relative aspect-3/4 overflow-hidden">
                       <img
                         :src="theme.picture"
                         :alt="theme.name"
@@ -343,7 +343,7 @@ onUnmounted(() => {
                     </div>
 
                     <!-- 主题信息覆盖层 -->
-                    <div class="absolute inset-0 from-black/90 via-black/30 to-transparent bg-gradient-to-t opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <div class="absolute from-black/90 via-black/30 to-transparent bg-linear-to-t opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                       <div class="absolute bottom-0 left-0 right-0 p-2 text-white sm:p-3">
                         <h3 class="mb-1 text-sm font-bold sm:text-base">
                           {{ theme.name }}
@@ -360,9 +360,9 @@ onUnmounted(() => {
                     <!-- 选中状态指示器 -->
                     <div
                       v-if="theme.name === selectedTheme"
-                      class="absolute right-2 top-2 h-6 w-6 flex animate-pulse items-center justify-center rounded-full bg-[var(--theme-primary-color)] text-white shadow-lg"
+                      class="absolute right-2 top-2 h-6 w-6 flex animate-pulse items-center justify-center rounded-full bg-[--theme-primary-color] text-white shadow-lg"
                     >
-                      <div class="i-heroicons-check h-3 w-3" />
+                      <div class="icon-[heroicons-check] h-3 w-3" />
                     </div>
 
                     <!-- 节气标识 -->
@@ -390,11 +390,11 @@ onUnmounted(() => {
                   <div
                     :class="[
                       'status-indicator h-3 w-3 rounded-full shadow-sm',
-                      'bg-[var(--panel-primary-color)]',
+                      'bg-[--panel-primary-color]',
                       'animate-pulse',
                     ].join(' ')"
                   />
-                  <span class="text-[var(--panel-text-shade)]">
+                  <span class="text-[--panel-text-shade]">
                     当前主题:
                     <strong>
                       {{ selectedTheme || `${selectedThemeData?.name ? `${selectedThemeData.name}(自动匹配)` : ''}` }}
@@ -402,8 +402,8 @@ onUnmounted(() => {
                   </span>
                 </div>
                 <div class="hidden items-center gap-2 text-xs sm:flex">
-                  <div class="i-heroicons-information-circle h-4 w-4 text-[var(--panel-primary-color)]" />
-                  <span class="text-[var(--panel-text-shade)] opacity-80">点击卡片切换主题，悬停查看详情</span>
+                  <div class="icon-[heroicons-information-circle] h-4 w-4 text-[--panel-primary-color]" />
+                  <span class="text-[--panel-text-shade] opacity-80">点击卡片切换主题，悬停查看详情</span>
                 </div>
               </div>
               <div class="flex items-center gap-3">
@@ -411,18 +411,18 @@ onUnmounted(() => {
                   v-if="selectedTheme"
                   :class="[
                     'flex items-center gap-2 rounded-lg px-4 py-2',
-                    'text-sm font-medium text-[var(--panel-text-shade)]',
-                    'bg-[var(--panel-accent-light)] shadow-sm',
+                    'text-sm font-medium text-[--panel-text-shade]',
+                    'bg-[--panel-accent-light] shadow-sm',
                     'transition-all hover:scale-105 hover:shadow-md',
                     'shadow-[0_2px_4px_rgba(0,0,0,0.1),inset_0_1px_2px_rgba(255,255,255,0.3)]',
-                    'border border-[var(--panel-border-light)]',
+                    'border border-[--panel-border-light]',
                   ].join(' ')"
                   @click="resetToAutoTheme"
                 >
-                  <div class="i-heroicons-arrow-path h-4 w-4" />
+                  <div class="icon-[heroicons-arrow-path] h-4 w-4" />
                   <span>恢复自动</span>
                 </button> -->
-                <div class="text-xs text-[var(--panel-text-shade)] font-medium opacity-70">
+                <div class="text-xs text-[--panel-text-shade] font-medium opacity-70">
                   {{ selectedTheme ? '🎨 手动选择' : '🤖 自动模式' }}
                 </div>
               </div>

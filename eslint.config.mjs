@@ -5,7 +5,6 @@ export default withNuxt(
   antfn(
     {
       vue: true,
-      unocss: true,
       ignores: ['.nuxt/', '.output/', 'dist', 'node_modules'],
       formatters: {
         /**

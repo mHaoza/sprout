@@ -7,7 +7,7 @@ const navSearch = useTemplateRef('navSearch')
 <template>
   <div>
     <div class="flex cursor-pointer items-center text-gray-500" @click="navSearch?.openPalette()">
-      <span class="i-mdi-search mr-2 inline-block" />
+      <span class="icon-[lucide--search]" />
       搜索站点、描述、标签(Ctrl+K 打开/关闭搜索面板)
     </div>
 

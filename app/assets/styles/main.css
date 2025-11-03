@@ -1,5 +1,6 @@
 @import './reset.css';
 @import './theme.css';
+@import './tailwind.css';
 
 body {
   font-family: Arial, sans-serif;

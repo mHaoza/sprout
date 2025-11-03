@@ -16,7 +16,7 @@ const scrolled = computed(() => y.value > 100)
 <template>
   <header
     class="fixed left-0 right-0 top-0 z-0 h-24 w-screen flex flex-col items-center justify-between transition-[top]"
-    :class="{ 'slide-down': scrolled }"
+    :class="{ 'top-[-45px] shadow-md backdrop-blur-md': scrolled }"
   >
     <NuxtLink to="/" class="my-3 text-2xl transition-all">
       私の
@@ -27,16 +27,10 @@ const scrolled = computed(() => y.value > 100)
         v-for="item in navList"
         :key="item.path"
         :to="item.path"
-        class="mx-3 px-2"
+        class="aa mx-3 px-2"
       >
         {{ item.name }}
       </NuxtLink>
     </nav>
   </header>
 </template>
-
-<style lang="postcss" scoped>
-.slide-down {
-  @apply top-[-45px] shadow-md backdrop-blur-md;
-}
-</style>

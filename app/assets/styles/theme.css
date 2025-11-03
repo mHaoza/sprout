@@ -26,20 +26,34 @@ body {
 }
 
 html::after {
-  @apply fixed inset-0;
-  background-image: url('~/assets/textures/frosted.png');
   content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('~/assets/textures/frosted.png');
   z-index: -1;
+  pointer-events: none;
 }
 html::before {
-  @apply fixed inset-0 bg-fixed bg-center bg-cover bg-no-repeat;
   content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   opacity: 1;
   background-image: var(--theme-bg-img);
   background-size: 16vw auto;
   background-position: 84vw bottom;
   transition: background-image 0.8s;
   z-index: -1;
+  pointer-events: none;
 }
 
 *::selection {

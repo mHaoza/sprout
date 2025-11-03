@@ -43,8 +43,8 @@ function toggle(item: string) {
       :class="[
         'group relative overflow-hidden px-3 py-1.5 rounded-xl cursor-pointer select-none text-sm font-medium border transition-all duration-300 backdrop-blur-sm hover:scale-105',
         selectedSet.has(item)
-          ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white border-transparent shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30'
-          : 'bg-white/30 text-gray-700 border-white/50 hover:(bg-white/50 border-white/70 text-gray-800)',
+          ? 'bg-linear-to-r from-indigo-500 to-purple-600 text-white border-transparent shadow-lg shadow-indigo-500/25 hover:shadow-xl hover:shadow-indigo-500/30'
+          : 'bg-white/30 text-gray-700 hover:(bg-white/50 border-white/70 text-gray-800)',
       ].join(' ')"
       @click="toggle(item)"
     >
@@ -52,7 +52,7 @@ function toggle(item: string) {
       <!-- 背景光效（仅选中状态） -->
       <div
         v-if="selectedSet.has(item)"
-        class="absolute inset-0 from-indigo-400/20 to-purple-400/20 bg-gradient-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        class="absolute from-indigo-400/20 to-purple-400/20 bg-linear-to-r opacity-0 transition-opacity duration-300 group-hover:opacity-100"
       />
     </button>
   </div>
