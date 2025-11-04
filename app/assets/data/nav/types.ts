@@ -3,6 +3,6 @@ export interface NavItem {
   link: string
   desc: string
   icon?: string
-  category: string[]
+  category: string
   tags: string[]
 }

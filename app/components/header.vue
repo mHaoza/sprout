@@ -10,12 +10,12 @@ const navList = [
   { path: '/about', name: '关于' },
 ]
 
-const scrolled = computed(() => y.value > 100)
+const scrolled = computed(() => y.value > 50)
 </script>
 
 <template>
   <header
-    class="fixed left-0 right-0 top-0 z-0 h-24 w-screen flex flex-col items-center justify-between transition-[top]"
+    class="fixed left-0 right-0 top-0 z-99 h-24 w-screen flex flex-col items-center justify-between transition-[top]"
     :class="{ 'top-[-45px] shadow-md backdrop-blur-md': scrolled }"
   >
     <NuxtLink to="/" class="my-3 text-2xl transition-all">

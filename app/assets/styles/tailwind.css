@@ -3,7 +3,6 @@
 
 @plugin "@iconify/tailwind4" {
   prefixes: lucide;
-  scale: 1.2;
 }
 
 @custom-variant dark (&:is(.dark *));
