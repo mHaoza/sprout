@@ -18,7 +18,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 
 <template>
   <Dialog v-bind="forwarded">
-    <DialogContent hide-overlay class="overflow-hidden p-0">
+    <DialogContent hide-overlay class="overflow-hidden p-0 max-w-lg">
       <DialogHeader class="sr-only">
         <DialogTitle>{{ title }}</DialogTitle>
         <DialogDescription>{{ description }}</DialogDescription>
