@@ -32,26 +32,14 @@ function init() {
   setTheme(theme || themeList[0]!)
 }
 
-// 键盘事件处理
-function handleKeydown(event: KeyboardEvent) {
-  if (event.key === 'Escape' && panelVisible.value) {
-    panelVisible.value = false
-  }
-}
-
-// 监听键盘事件
-if (typeof window !== 'undefined') {
-  window.addEventListener('keydown', handleKeydown)
-}
-
 function setTheme(theme: typeof themeList[number]) {
-  // 设置主色调 - 用于强调元素、边框等
+  // 设置主色调 - 用于主体元素
   document?.documentElement.style.setProperty('--primary', theme.colors.primary)
-  // 设置辅助色 - 用于装饰和次要元素
+  // 设置强调色调 - 用于强调元素
   document?.documentElement.style.setProperty('--accent', theme.colors.accent)
   // 设置背景色调 - 用于卡片、面板等背景
   document?.documentElement.style.setProperty('--background', Color(theme.colors.background).alpha(0.3).toString())
-  // 设置高亮色调 - 用于选中状态、悬停等
+  // 设置边框色调 - 用于卡片、面板等边框
   document?.documentElement.style.setProperty('--ring', theme.colors.ring)
   // 设置背景图片
   document?.documentElement.style.setProperty('--bg-img', `url('${theme.poetryPicture}')`)
@@ -100,20 +88,23 @@ function selectTheme(theme: typeof themeList[number]) {
             :src="theme.poetryPicture"
             :alt="theme.name"
             draggable="false"
-            class="absolute right-0 bottom-0 scale-140 origin-bottom-right pointer-events-none"
+            class="absolute right-0 bottom-[-5px] scale-140 origin-bottom-right pointer-events-none"
           >
 
           <div class="absolute left-2 top-2 rounded-full bg-white/70 px-2 py-1 text-xs text-neutral-700 border border-black/10 shadow-sm backdrop-blur-sm">
             {{ theme.name }}
           </div>
 
-          <div class="absolute bottom-0 left-0 right-0 h-1 flex">
-            <div class="flex-1 transition-colors duration-300" :style="{ backgroundColor: theme.colors.primary }" />
-            <div class="flex-1 transition-colors duration-300" :style="{ backgroundColor: theme.colors.accent }" />
-            <div class="flex-1 transition-colors duration-300" :style="{ backgroundColor: theme.colors.background }" />
+          <div class="absolute top-3 right-3 flex gap-2 rounded-md">
+            <div class="size-3 border rounded-full transition-colors duration-300" :style="{ backgroundColor: theme.colors.primary }" />
+            <div class="size-3 border rounded-full transition-colors duration-300" :style="{ backgroundColor: theme.colors.accent }" />
+            <div class="size-3 border rounded-full transition-colors duration-300" :style="{ backgroundColor: theme.colors.background }" />
           </div>
 
-          <div class="absolute bottom-0 p-2 text-primary from-(--background-base) from-50% to-transparent bg-linear-to-t opacity-0 transition-opacity duration-500 group-hover:opacity-100">
+          <div
+            class="absolute bottom-0 p-2 from-(--background-base) from-50% to-transparent bg-linear-to-t opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            :style="{ color: theme.colors.primary }"
+          >
             <h3 class="mb-1 text-sm font-bold sm:text-base">
               {{ theme.name }}
             </h3>
