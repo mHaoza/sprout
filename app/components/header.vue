@@ -18,7 +18,7 @@ const scrolled = computed(() => y.value > 100)
     class="header fixed left-0 right-0 top-0 z-99 h-24 w-screen flex flex-col items-center justify-between transition-[top]"
     :class="{ 'top-[-45px] shadow-md': scrolled }"
   >
-    <NuxtLink to="/" class="my-3 text-2xl transition-all">
+    <NuxtLink to="/" class="my-3 text-2xl">
       私の
     </NuxtLink>
 

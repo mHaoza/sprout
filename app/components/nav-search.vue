@@ -10,7 +10,7 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
+} from '~/components/ui/command'
 import { navList } from '~/assets/data/nav'
 
 const open = ref(false)
