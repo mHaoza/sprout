@@ -155,7 +155,7 @@ function getWeekDayNumber(date: Date | string) {
               target="_blank"
               :class="cn(
                 'group relative cursor-pointer overflow-hidden',
-                'rounded-lg border border-border/50 shadow-sm',
+                'aspect-[0.7] rounded-lg border border-border/50 shadow-sm',
                 'hover:scale-[1.02] hover:shadow-lg',
                 'transition-all duration-300',
               )"
@@ -198,7 +198,7 @@ function getWeekDayNumber(date: Date | string) {
         target="_blank"
         :class="cn(
           'group relative cursor-pointer overflow-hidden',
-          ' border border-border/50 shadow-sm',
+          'aspect-[0.7] border border-border/50 shadow-sm',
         )"
       >
         <img
