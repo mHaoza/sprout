@@ -9,6 +9,15 @@ import {
 } from '~/components/ui/tabs'
 import { cn } from '~/lib/utils'
 
+definePageMeta({
+  bannerImage: 'http://127.0.0.1:9000/blog/2025/11/13/edf8e82c7c90de3ebbe2fb52b02eb18c.webp',
+  postMeta: {
+    title: '追番',
+    author: 'haoza',
+    date: '2025-11-11',
+  },
+})
+
 const activeTab = ref(getWeekDayNumber(new Date()))
 
 const USERID = 877981
@@ -169,7 +178,7 @@ function getWeekDayNumber(date: Date | string) {
                 :class="cn(
                   'absolute bottom-0 left-0 right-0 truncate',
                   'bg-linear-to-t from-black/80 via-black/50 to-transparent',
-                  'p-2 pt-8 text-sm text-white',
+                  'p-2 pt-8 text-sm text-white text-center',
                 )"
               >
                 {{ collection.subject.name_cn }}
@@ -198,18 +207,15 @@ function getWeekDayNumber(date: Date | string) {
         target="_blank"
         :class="cn(
           'group relative cursor-pointer overflow-hidden',
-          'aspect-[0.7] border border-border/50 shadow-sm',
+          'border border-border/50 shadow-sm',
         )"
       >
         <img
           :src="collection.subject.images.large"
-          class="pointer-events-none w-full"
+          class="pointer-events-none w-full aspect-[0.7]"
           :alt="collection.subject.name_cn"
         >
-        <div
-          :class="cn('truncate p-2',
-          )"
-        >
+        <div :class="cn('truncate p-2 text-center')">
           {{ collection.subject.name_cn }}
         </div>
       </a>

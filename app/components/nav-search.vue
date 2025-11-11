@@ -3,6 +3,7 @@ import type { NavItem } from '~/assets/data/nav'
 
 import { useMagicKeys } from '@vueuse/core'
 import { ref, watch } from 'vue'
+import { navList } from '~/assets/data/nav'
 import {
   CommandDialog,
   CommandEmpty,
@@ -11,7 +12,6 @@ import {
   CommandItem,
   CommandList,
 } from '~/components/ui/command'
-import { navList } from '~/assets/data/nav'
 
 const open = ref(false)
 

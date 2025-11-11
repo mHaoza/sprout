@@ -20,6 +20,7 @@
     "color": "^5.0.2",
     "lucide-vue-next": "^0.552.0",
     "lunar-typescript": "^1.8.5",
+    "nprogress": "^0.2.0",
     "nuxt": "^4.2.0",
     "reka-ui": "^2.6.0",
     "shadcn-nuxt": "2.3.2",
@@ -35,6 +36,7 @@
     "@iconify/tailwind4": "^1.1.0",
     "@nuxt/eslint": "^1.10.0",
     "@nuxt/eslint-config": "^1.10.0",
+    "@types/nprogress": "^0.2.3",
     "eslint": "^9.39.0",
     "eslint-plugin-format": "^1.0.2",
     "typescript": "^5.9.3"

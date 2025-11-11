@@ -3,7 +3,8 @@
 <template>
   <div class="default-layout">
     <Header />
-    <main class="p-4 pt-24 tracking-wide">
+    <main class="tracking-wide">
+      <Banner />
       <slot />
     </main>
   </div>

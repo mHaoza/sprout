@@ -1,0 +1,12 @@
+/*
+ * 字体管理文件
+ * 在此文件中定义所有自定义字体的 @font-face 规则
+ */
+
+/* クラフトmingchao 字体 */
+@font-face {
+  font-family: 'mingchao';
+  src: url('./クラフトmingchao.subset.woff2') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}

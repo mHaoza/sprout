@@ -17,6 +17,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [
       tailwindcss() as any,
+      { src: '~/plugins/router-nprogress.client.ts', mode: 'client' },
     ],
     // clearScreen: false,
     // 启用环境变量
