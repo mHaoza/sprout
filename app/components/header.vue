@@ -6,20 +6,23 @@ const { y } = useScroll(document?.body)
 const navList = [
   { path: '/', name: '首页' },
   { path: '/anime', name: '追番' },
-  { path: '/demo', name: '案例' },
+  { path: '/project', name: '项目' },
+  { path: '/links', name: '友链' },
   { path: '/about', name: '关于' },
 ]
 
 const scrolled = computed(() => y.value > 100)
+
+const appConfig = useAppConfig()
 </script>
 
 <template>
   <header
-    class="header fixed left-0 right-0 top-0 z-99 h-24 w-screen flex flex-col items-center justify-between transition-[top]"
+    class="header sticky left-0 right-0 top-0 z-99 h-24 w-full flex flex-col items-center justify-between transition-[top]"
     :class="{ 'top-[-45px] shadow-md': scrolled }"
   >
-    <NuxtLink to="/" class="my-3 text-2xl">
-      私の
+    <NuxtLink to="/" class="font-mingchao my-3 text-3xl text-foreground">
+      {{ appConfig.site.name }}
     </NuxtLink>
 
     <nav class="header-nav mb-3">

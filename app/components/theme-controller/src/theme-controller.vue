@@ -39,8 +39,6 @@ function setTheme(theme: typeof themeList[number]) {
   document?.documentElement.style.setProperty('--accent', theme.colors.accent)
   // 设置背景色调 - 用于卡片、面板等背景
   document?.documentElement.style.setProperty('--background', Color(theme.colors.background).alpha(0.3).toString())
-  // 设置边框色调 - 用于卡片、面板等边框
-  document?.documentElement.style.setProperty('--ring', theme.colors.ring)
   // 设置背景图片
   document?.documentElement.style.setProperty('--bg-img', `url('${theme.poetryPicture}')`)
 }
