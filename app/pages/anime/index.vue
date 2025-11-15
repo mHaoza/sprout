@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { UserSubjectCollection } from '../../../shared/types/bangumi'
 import { Button } from '~/components/ui/button'
 import { Spinner } from '~/components/ui/spinner'
 import {
@@ -8,6 +9,7 @@ import {
   TabsTrigger,
 } from '~/components/ui/tabs'
 import { cn } from '~/lib/utils'
+import { CollectionType, SubjectType } from '../../../shared/types/bangumi'
 
 definePageMeta({
   bannerImage: 'http://127.0.0.1:9000/blog/2025/11/13/edf8e82c7c90de3ebbe2fb52b02eb18c.webp',
@@ -52,60 +54,57 @@ async function getAllCollectionData(
 }
 
 /** 追番 日历 */
+const defaultCalendarData = [
+  { weekday: { en: 'Mon', cn: '星期一', ja: '月耀日', id: 1 }, items: [] },
+  { weekday: { en: 'Tue', cn: '星期二', ja: '火耀日', id: 2 }, items: [] },
+  { weekday: { en: 'Wed', cn: '星期三', ja: '水耀日', id: 3 }, items: [] },
+  { weekday: { en: 'Thu', cn: '星期四', ja: '木耀日', id: 4 }, items: [] },
+  { weekday: { en: 'Fri', cn: '星期五', ja: '金耀日', id: 5 }, items: [] },
+  { weekday: { en: 'Sat', cn: '星期六', ja: '土耀日', id: 6 }, items: [] },
+  { weekday: { en: 'Sun', cn: '星期日', ja: '日耀日', id: 7 }, items: [] },
+]
 const { data: animeCalendarData } = useAsyncData('animeCalendarData', async () => {
   const collectionData = await getAllCollectionData(USERID)
 
-  const calendarData: { weekday: { en: string, cn: string, ja: string, id: number }, items: UserSubjectCollection[] }[] = [
-    { weekday: { en: 'Mon', cn: '星期一', ja: '月耀日', id: 1 }, items: [] },
-    { weekday: { en: 'Tue', cn: '星期二', ja: '火耀日', id: 2 }, items: [] },
-    { weekday: { en: 'Wed', cn: '星期三', ja: '水耀日', id: 3 }, items: [] },
-    { weekday: { en: 'Thu', cn: '星期四', ja: '木耀日', id: 4 }, items: [] },
-    { weekday: { en: 'Fri', cn: '星期五', ja: '金耀日', id: 5 }, items: [] },
-    { weekday: { en: 'Sat', cn: '星期六', ja: '土耀日', id: 6 }, items: [] },
-    { weekday: { en: 'Sun', cn: '星期日', ja: '日耀日', id: 7 }, items: [] },
-  ]
+  const calendarData: { weekday: { en: string, cn: string, ja: string, id: number }, items: UserSubjectCollection[] }[] = defaultCalendarData
 
   calendarData.forEach((calendarItem) => {
     calendarItem.items = collectionData.filter(collection => getWeekDayNumber(collection.subject.date) === calendarItem.weekday.id)
   })
 
   return calendarData
-}, { default: () => [] })
+}, { default: () => defaultCalendarData, server: false })
 
 /** 已看动画 */
-const pageSize = 8
-const { data: watchedInitial } = await useAsyncData('watched-initial', async () => {
-  return await getCollectionRawData(USERID, {
-    subjectType: SubjectType.Anime,
-    type: CollectionType.Watched,
-    offset: 0,
-    limit: pageSize,
-  })
-}, { default: () => ({ data: [], total: 0 }) })
-
-const watchedState = reactive({
-  data: (watchedInitial.value?.data || []) as UserSubjectCollection[],
-  page: 1,
-  pageSize,
-  total: watchedInitial.value?.total || Infinity,
+const watched = reactive({
   loading: false,
+  page: 0,
+  pageSize: 8,
+  data: [] as UserSubjectCollection[],
+  total: Infinity,
 })
-async function loadWatchedAnimeData() {
-  if (!import.meta.client)
-    return
-  watchedState.page++
-  watchedState.loading = true
-  const { data, total } = await getCollectionRawData(USERID, {
-    subjectType: SubjectType.Anime,
-    type: CollectionType.Watched,
-    offset: (watchedState.page - 1) * watchedState.pageSize,
-    limit: watchedState.pageSize,
-  }).finally(() => {
-    watchedState.loading = false
-  })
-  watchedState.total = total || Infinity
-  watchedState.data = [...watchedState.data, ...data]
+
+async function loadWatchedData() {
+  watched.loading = true
+  try {
+    const { data, total } = await getCollectionRawData(USERID, {
+      subjectType: SubjectType.Anime,
+      type: CollectionType.Watched,
+      offset: watched.page * watched.pageSize,
+      limit: watched.pageSize,
+    })
+    watched.data = [...watched.data, ...data]
+    watched.total = total
+    watched.page++
+  }
+  finally {
+    watched.loading = false
+  }
 }
+
+onMounted(() => {
+  loadWatchedData()
+})
 
 /** 获取星期几(数字) */
 function getWeekDayNumber(date: Date | string) {
@@ -164,13 +163,12 @@ function getWeekDayNumber(date: Date | string) {
               target="_blank"
               :class="cn(
                 'group relative cursor-pointer overflow-hidden',
-                'aspect-[0.7] rounded-lg border border-border/50 shadow-sm',
+                'aspect-[0.7] rounded-lg border border-border/50 shadow-sm transition-transform',
                 'hover:scale-[1.02] hover:shadow-lg',
-                'transition-all duration-300',
               )"
             >
               <img
-                :src="collection.subject.images.large"
+                :src="collection.subject.images.small"
                 class="pointer-events-none w-full h-full object-cover"
                 :alt="collection.subject.name_cn"
               >
@@ -200,7 +198,7 @@ function getWeekDayNumber(date: Date | string) {
 
     <div class="grid grid-cols-4 gap-4">
       <a
-        v-for="collection in watchedState.data"
+        v-for="collection in watched.data"
         :key="collection.subject.id"
         :href="`https://bgm.tv/subject/${collection.subject.id}`"
         :title="collection.subject.name_cn"
@@ -210,11 +208,13 @@ function getWeekDayNumber(date: Date | string) {
           'border border-border/50 shadow-sm',
         )"
       >
-        <img
-          :src="collection.subject.images.large"
-          class="pointer-events-none w-full aspect-[0.7]"
-          :alt="collection.subject.name_cn"
-        >
+        <div class="aspect-[0.7] pointer-events-none overflow-hidden">
+          <img
+            :src="collection.subject.images.medium"
+            class="w-full h-full transition-transform group-hover:scale-110"
+            :alt="collection.subject.name_cn"
+          >
+        </div>
         <div :class="cn('truncate p-2 text-center')">
           {{ collection.subject.name_cn }}
         </div>
@@ -223,18 +223,18 @@ function getWeekDayNumber(date: Date | string) {
 
     <!-- 加载更多 -->
     <Button
-      v-if="watchedState.data.length > 0 && watchedState.data.length < watchedState.total"
+      v-if="watched.data.length > 0 && watched.data.length < watched.total"
       :class="cn(
         'flex items-center',
         'mt-4 mx-auto text-foreground rounded-none cursor-pointer border-2',
         'bg-transparent hover:bg-transparent hover:border-primary',
       )"
-      @click="loadWatchedAnimeData"
+      @click="loadWatchedData"
     >
       加载更多
-      <Spinner v-if="watchedState.loading" />
+      <Spinner v-if="watched.loading" />
     </Button>
-    <div v-else-if="!watchedState.loading" class="py-12 text-center text-muted-foreground">
+    <div v-else-if="!watched.loading" class="py-12 text-center text-muted-foreground">
       没有更多了~
     </div>
 
