@@ -1,0 +1,230 @@
+/* Prose 样式 - 用于 Markdown 内容渲染 */
+@reference "./tailwind.css";
+
+.prose {
+  color: var(--foreground);
+  /* 添加平滑的过渡效果 */
+  transition: color 0.3s ease;
+}
+
+/* 目录样式 */
+.toc li {
+  transition:
+    opacity 0.3s ease,
+    transform 0.2s ease;
+}
+
+.toc li:not(.visible) {
+  opacity: 0.5;
+}
+
+.toc li.visible {
+  opacity: 1;
+}
+
+.toc li.active a {
+  color: var(--foreground);
+  font-weight: 600;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--primary);
+}
+
+.prose :where(p):not(:where([class~='not-prose'] *)) {
+  @apply leading-7;
+  @apply not-first:mt-6;
+}
+
+.prose :where(h1):not(:where([class~='not-prose'] *)) {
+  @apply scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl;
+  @apply mt-8 mb-4;
+}
+
+.prose :where(h2):not(:where([class~='not-prose'] *)) {
+  @apply scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight;
+  @apply first:mt-0 mt-8 mb-4;
+}
+
+.prose :where(h3):not(:where([class~='not-prose'] *)) {
+  @apply scroll-m-20 text-2xl font-semibold tracking-tight;
+  @apply mt-6 mb-3;
+}
+
+.prose :where(h4):not(:where([class~='not-prose'] *)) {
+  @apply scroll-m-20 text-xl font-semibold tracking-tight;
+  @apply mt-4 mb-2;
+}
+
+.prose :where(h5):not(:where([class~='not-prose'] *)) {
+  @apply scroll-m-20 text-lg font-semibold tracking-tight;
+  @apply mt-4 mb-2;
+}
+
+.prose :where(h6):not(:where([class~='not-prose'] *)) {
+  @apply scroll-m-20 text-base font-semibold tracking-tight;
+  @apply mt-4 mb-2;
+}
+
+.prose :where(a):not(:where([class~='not-prose'] *)) {
+  @apply font-medium underline underline-offset-4;
+  color: var(--primary);
+  transition: color 0.2s ease;
+}
+
+.prose :where(a):not(:where([class~='not-prose'] *)):hover {
+  color: color-mix(in oklch, var(--primary) 80%, transparent);
+  text-decoration-thickness: 2px;
+}
+
+.prose :where(strong):not(:where([class~='not-prose'] *)) {
+  @apply font-semibold;
+}
+
+.prose :where(ul):not(:where([class~='not-prose'] *)) {
+  @apply my-6 ml-6 list-disc;
+}
+
+.prose :where(ol):not(:where([class~='not-prose'] *)) {
+  @apply my-6 ml-6 list-decimal;
+}
+
+.prose :where(li):not(:where([class~='not-prose'] *)) {
+  @apply mt-2 leading-7;
+}
+
+.prose :where(blockquote):not(:where([class~='not-prose'] *)) {
+  @apply mt-6 border-l-4 pl-6 italic;
+  border-color: var(--primary);
+  transition:
+    border-color 0.3s ease,
+    background-color 0.3s ease;
+  background-color: color-mix(in oklch, var(--primary) 5%, transparent);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.prose :where(hr):not(:where([class~='not-prose'] *)) {
+  @apply my-8 border-t;
+}
+
+.prose :where(table):not(:where([class~='not-prose'] *)) {
+  @apply my-6 w-full border-collapse border;
+}
+
+.prose :where(thead):not(:where([class~='not-prose'] *)) {
+  @apply border-b;
+  background-color: var(--muted);
+}
+
+.prose :where(tbody):not(:where([class~='not-prose'] *)) {
+  @apply [&_tr:last-child]:border-0;
+}
+
+.prose :where(tr):not(:where([class~='not-prose'] *)) {
+  @apply border-b transition-colors;
+}
+
+.prose :where(tr):not(:where([class~='not-prose'] *)):hover {
+  background-color: color-mix(in oklch, var(--muted) 50%, transparent);
+}
+
+.prose :where(th):not(:where([class~='not-prose'] *)) {
+  @apply border px-4 py-2 text-left font-bold;
+  @apply [[align=center]]:text-center;
+  @apply [[align=right]]:text-right;
+}
+
+.prose :where(td):not(:where([class~='not-prose'] *)) {
+  @apply border px-4 py-2 text-left;
+  @apply [[align=center]]:text-center;
+  @apply [[align=right]]:text-right;
+}
+
+.prose :where(img):not(:where([class~='not-prose'] *)) {
+  @apply rounded-lg border my-6;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.prose :where(img):not(:where([class~='not-prose'] *)):hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.prose :where(code):not(:where([class~='not-prose'] *)) {
+  @apply relative rounded px-[0.3rem] py-[0.2rem];
+  @apply font-mono text-sm font-semibold text-primary;
+  background-color: var(--muted);
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.prose :where(pre):not(:where([class~='not-prose'] *)) {
+  @apply overflow-x-auto rounded-lg border p-4 text-sm;
+  background-color: var(--muted);
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+  position: relative;
+}
+
+.prose :where(pre code):not(:where([class~='not-prose'] *)) {
+  @apply font-normal;
+  background: transparent !important;
+  padding: 0;
+  font-size: inherit;
+  color: var(--foreground);
+}
+
+/* 行号显示 */
+pre.has-line-numbers {
+  padding: 1rem 1rem 1rem 2rem;
+}
+
+pre.has-line-numbers code {
+  counter-reset: line;
+}
+
+pre.has-line-numbers code .line::before {
+  counter-increment: line;
+  content: counter(line);
+  display: inline-block;
+  width: 2rem;
+  margin-right: 1rem;
+  margin-left: -2rem;
+  text-align: right;
+  color: var(--muted-foreground);
+  opacity: 0.5;
+  user-select: none;
+}
+
+/* 图片容器样式 */
+.prose :where(figure):not(:where([class~='not-prose'] *)) {
+  @apply my-6;
+}
+
+.prose :where(figcaption):not(:where([class~='not-prose'] *)) {
+  @apply mt-2 text-center text-sm italic text-muted-foreground;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .prose {
+    @apply text-base;
+  }
+
+  .prose :where(h1):not(:where([class~='not-prose'] *)) {
+    @apply text-3xl;
+  }
+
+  .prose :where(h2):not(:where([class~='not-prose'] *)) {
+    @apply text-2xl;
+  }
+
+  .prose :where(h3):not(:where([class~='not-prose'] *)) {
+    @apply text-xl;
+  }
+
+  .prose :where(img):not(:where([class~='not-prose'] *)) {
+    @apply mt-4;
+  }
+}

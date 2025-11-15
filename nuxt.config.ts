@@ -25,8 +25,28 @@ export default defineNuxtConfig({
     // server: {
     //   strictPort: true,
     // },
+    optimizeDeps: {
+      exclude: [
+        '@nuxtjs/mdc',
+        'remark-gfm',
+        'remark-emoji',
+        'remark-mdc',
+        'remark-rehype',
+        'rehype-raw',
+        'parse5',
+        'unist-util-visit',
+        'unified',
+        'debug',
+      ],
+    },
   },
-  modules: ['@nuxt/eslint', 'shadcn-nuxt'],
+  modules: ['@nuxt/eslint', 'shadcn-nuxt', '@nuxt/content'],
+  css: ['~/assets/styles/main.css', '~/assets/styles/prose.css'],
+  eslint: {
+    config: {
+      standalone: false,
+    },
+  },
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -38,26 +58,47 @@ export default defineNuxtConfig({
      */
     componentDir: './app/components/ui',
   },
-  ignore: ['app/pages/**/modules/**'],
-  hooks: {
-    'pages:extend': function (pages) {
-      // 添加首页路由
-      pages.push({
-        name: 'home',
-        path: '/',
-        file: '~/pages/home/index.vue',
-      })
-      // 移除首页home路由
-      const index = pages.findIndex(page => page.path === '/home')
-      if (index >= 0) {
-        pages.splice(index, 1)
-      }
+  content: {
+    build: {
+      markdown: {
+        highlight: {
+          theme: {
+            default: 'one-dark-pro',
+          },
+          langs: [
+            'javascript',
+            'typescript',
+            'jsx',
+            'tsx',
+            'vue',
+            'html',
+            'css',
+            'scss',
+            'json',
+            'yaml',
+            'markdown',
+            'bash',
+            'shell',
+            'python',
+            'py',
+            'java',
+            'cpp',
+            'c',
+            'go',
+            'rust',
+            'php',
+            'ruby',
+            'sql',
+            'xml',
+            'dockerfile',
+            'diff',
+          ],
+        },
+        toc: { depth: 4, searchDepth: 4 },
+      },
     },
-  },
-  css: ['~/assets/styles/main.css'],
-  eslint: {
-    config: {
-      standalone: false,
+    experimental: {
+      sqliteConnector: 'native',
     },
   },
 })
