@@ -6,8 +6,8 @@ const navSearch = useTemplateRef('navSearch')
 const pageStore = usePageStore()
 
 const meta = {
-  title: '导航',
-  description: '网站导航和资源收藏',
+  title: '站点收藏',
+  description: '我的站点收藏',
 }
 
 onMounted(() => {
@@ -24,7 +24,7 @@ useSeoMeta(meta)
 </script>
 
 <template>
-  <div class="max-w-4xl mx-auto px-4">
+  <div class="max-w-4xl mx-auto px-4 mt-6">
     <p class="flex items-center text-sm text-muted-foreground cursor-pointer" @click="navSearch?.open()">
       <Search class="mr-1 h-4 w-4" />
       搜索站点、描述、标签(Ctrl+K 打开/关闭搜索面板)

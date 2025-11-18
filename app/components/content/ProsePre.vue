@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { Check, Copy } from 'lucide-vue-next'
 import { computed, nextTick, ref, useAttrs } from 'vue'
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 interface Props {
@@ -146,7 +145,7 @@ async function copyCode() {
       >
         {{ filename }}
       </span>
-      <Button
+      <UiButton
         variant="ghost"
         size="sm"
         class="h-7 w-7 rounded-tl-none rounded-br-none p-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -154,13 +153,13 @@ async function copyCode() {
       >
         <Check v-if="copied" class="h-4 w-4" />
         <Copy v-else class="h-4 w-4" />
-      </Button>
+      </UiButton>
     </div>
     <div
       v-else
       class="absolute right-0 top-0 z-10 rounded-bl-md"
     >
-      <Button
+      <UiButton
         variant="ghost"
         size="sm"
         class="h-7 w-7 rounded-tl-none rounded-br-md p-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
@@ -168,7 +167,7 @@ async function copyCode() {
       >
         <Check v-if="copied" class="h-4 w-4" />
         <Copy v-else class="h-4 w-4" />
-      </Button>
+      </UiButton>
     </div>
   </div>
 </template>

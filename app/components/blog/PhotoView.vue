@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import { Camera, Image as ImageIcon } from 'lucide-vue-next'
 import Viewer from 'viewerjs'
-// import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
-import { Spinner } from '@/components/ui/spinner'
 import { cn } from '@/lib/utils'
 import 'viewerjs/dist/viewer.css'
 
@@ -102,7 +100,7 @@ onBeforeUnmount(() => {
           v-if="!isReady"
           class="absolute inset-0 z-10 flex items-center justify-center rounded-lg bg-muted/50"
         >
-          <Spinner />
+          <UiSpinner />
         </div>
       </Transition>
     </div>

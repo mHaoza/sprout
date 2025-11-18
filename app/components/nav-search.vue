@@ -5,14 +5,6 @@ import { useMagicKeys } from '@vueuse/core'
 import { Folder, Tag } from 'lucide-vue-next'
 import { ref, watch } from 'vue'
 import { navList } from '~/assets/data/nav'
-import {
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '~/components/ui/command'
 
 const open = ref(false)
 
@@ -64,15 +56,15 @@ defineExpose({ open: () => open.value = true })
 </script>
 
 <template>
-  <CommandDialog v-model:open="open">
-    <CommandInput placeholder="搜索站点、描述、标签(Ctrl+K 打开/关闭;Ctrl+数字快速打开)" />
-    <CommandList>
-      <CommandEmpty class="text-gray-500">
+  <UiCommandDialog v-model:open="open">
+    <UiCommandInput placeholder="搜索站点、描述、标签(Ctrl+K 打开/关闭;Ctrl+数字快速打开)" />
+    <UiCommandList>
+      <UiCommandEmpty class="text-gray-500">
         未匹配到任何结果
-      </CommandEmpty>
+      </UiCommandEmpty>
 
-      <CommandGroup v-for="group in groupList" :key="group.category" :heading="group.category">
-        <CommandItem v-for="item in group.items" :key="item.link" :value="navItemValue(item)" @click="go(item)">
+      <UiCommandGroup v-for="group in groupList" :key="group.category" :heading="group.category">
+        <UiCommandItem v-for="item in group.items" :key="item.link" :value="navItemValue(item)" @click="go(item)">
           <div>
             <div>
               <span>{{ item.name }}</span>
@@ -87,8 +79,8 @@ defineExpose({ open: () => open.value = true })
               {{ item.tags.join(' ') }}
             </div>
           </div>
-        </CommandItem>
-      </CommandGroup>
-    </CommandList>
-  </CommandDialog>
+        </UiCommandItem>
+      </UiCommandGroup>
+    </UiCommandList>
+  </UiCommandDialog>
 </template>

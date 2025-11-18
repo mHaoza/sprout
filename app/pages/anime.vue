@@ -1,12 +1,4 @@
 <script setup lang="ts">
-import { Button } from '~/components/ui/button'
-import { Spinner } from '~/components/ui/spinner'
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '~/components/ui/tabs'
 import { cn } from '~/lib/utils'
 
 const pageStore = usePageStore()
@@ -123,18 +115,18 @@ function getWeekDayNumber(date: Date | string) {
     <h2 class="text-xl font-bold mt-12 mb-2">
       追番
     </h2>
-    <Tabs
+    <UiTabs
       v-model="activeTab"
       :class="cn('w-full p-2 bg-card/80 backdrop-blur-sm shadow-sm rounded-lg')"
     >
-      <TabsList
+      <UiTabsList
         :class="cn(
           'mb-2 flex items-center justify-start gap-2',
           'border-b border-border bg-transparent',
           'px-2 pb-2 h-auto w-full rounded-none',
         )"
       >
-        <TabsTrigger
+        <UiTabsTrigger
           v-for="(item) in animeCalendarData"
           :key="item.weekday.en"
           :value="item.weekday.id"
@@ -150,10 +142,10 @@ function getWeekDayNumber(date: Date | string) {
           )"
         >
           {{ item.weekday.cn }}
-        </TabsTrigger>
-      </TabsList>
+        </UiTabsTrigger>
+      </UiTabsList>
       <div class="px-2 py-3">
-        <TabsContent
+        <UiTabsContent
           v-for="(item) in animeCalendarData"
           :key="item.weekday.en"
           :value="item.weekday.id"
@@ -192,9 +184,9 @@ function getWeekDayNumber(date: Date | string) {
               暂无追番更新
             </p>
           </div>
-        </TabsContent>
+        </UiTabsContent>
       </div>
-    </Tabs>
+    </UiTabs>
 
     <h2 class="text-xl font-bold mt-12 mb-2">
       已看动画
@@ -226,7 +218,7 @@ function getWeekDayNumber(date: Date | string) {
     </div>
 
     <!-- 加载更多 -->
-    <Button
+    <UiButton
       v-if="watched.data.length > 0 && watched.data.length < watched.total"
       :class="cn(
         'flex items-center',
@@ -236,8 +228,8 @@ function getWeekDayNumber(date: Date | string) {
       @click="loadWatchedData"
     >
       加载更多
-      <Spinner v-if="watched.loading" />
-    </Button>
+      <UiSpinner v-if="watched.loading" />
+    </UiButton>
     <div v-else-if="!watched.loading" class="py-12 text-center text-muted-foreground">
       没有更多了~
     </div>

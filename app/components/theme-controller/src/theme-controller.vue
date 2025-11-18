@@ -4,14 +4,6 @@ import Color from 'color'
 import { Check } from 'lucide-vue-next'
 import { Lunar } from 'lunar-typescript'
 import { ref } from 'vue'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '~/components/ui/dialog'
 import { themeList } from './theme-list'
 
 const panelVisible = ref(false)
@@ -58,23 +50,23 @@ function selectTheme(theme: typeof themeList[number]) {
 </script>
 
 <template>
-  <Dialog v-model:open="panelVisible">
-    <DialogTrigger as-child>
+  <UiDialog v-model:open="panelVisible">
+    <UiDialogTrigger as-child>
       <div
         class="fixed bottom-[10vw] right-[3vw] h-16 w-16 cursor-pointer overflow-hidden border-2 border-[--primary] rounded-full opacity-0 transition-all duration-300 ease-in-out hover:scale-110 hover:opacity-100 hover:shadow-[--primary]/50 hover:shadow-lg"
         @click="panelVisible = true"
       >
         <img src="/imgs/比丢00.webp" class="h-full w-full object-cover transition-transform duration-300 hover:scale-105">
       </div>
-    </DialogTrigger>
+    </UiDialogTrigger>
 
-    <DialogContent hide-overlay class="p-0 w-5xl bg-(--background-base)">
-      <DialogHeader class="p-6 pb-0">
-        <DialogTitle>
+    <UiDialogContent hide-overlay class="p-0 w-5xl bg-(--background-base)">
+      <UiDialogHeader class="p-6 pb-0">
+        <UiDialogTitle>
           <div>主题选择</div>
-        </DialogTitle>
-        <DialogDescription />
-      </DialogHeader>
+        </UiDialogTitle>
+        <UiDialogDescription />
+      </UiDialogHeader>
 
       <div class="grid grid-cols-6 gap-4 overflow-y-scroll max-h-[80dvh] px-6 pb-6">
         <div
@@ -123,6 +115,6 @@ function selectTheme(theme: typeof themeList[number]) {
           </div>
         </div>
       </div>
-    </DialogContent>
-  </Dialog>
+    </UiDialogContent>
+  </UiDialog>
 </template>
