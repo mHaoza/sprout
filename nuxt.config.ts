@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     //   strictPort: true,
     // },
     optimizeDeps: {
+      include: ['@vueuse/core', 'vue', 'vue-router'],
       exclude: [
         '@nuxtjs/mdc',
         'remark-gfm',
@@ -38,6 +39,9 @@ export default defineNuxtConfig({
         'unified',
         'debug',
       ],
+    },
+    ssr: {
+      noExternal: ['@vueuse/core', 'vue', 'vue-router'],
     },
   },
   modules: ['@nuxt/eslint', 'shadcn-nuxt', '@nuxt/content', '@pinia/nuxt'],
