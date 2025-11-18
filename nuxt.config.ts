@@ -40,7 +40,7 @@ export default defineNuxtConfig({
       ],
     },
   },
-  modules: ['@nuxt/eslint', 'shadcn-nuxt', '@nuxt/content'],
+  modules: ['@nuxt/eslint', 'shadcn-nuxt', '@nuxt/content', '@pinia/nuxt'],
   css: ['~/assets/styles/main.css', '~/assets/styles/prose.css'],
   eslint: {
     config: {

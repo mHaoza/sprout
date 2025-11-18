@@ -2,6 +2,24 @@
 import { navList } from '~/assets/data/nav'
 
 const navSearch = useTemplateRef('navSearch')
+const pageStore = usePageStore()
+
+const meta = {
+  title: '导航',
+  description: '网站导航和资源收藏',
+}
+
+onMounted(() => {
+  pageStore.setPageMeta({
+    banner: {
+      postTitle: meta.title,
+      postMeta: 'haoza · 2025-11-11',
+      bannerImage: 'http://127.0.0.1:9000/blog/2025/11/12/8684c11604f1fef29480ed31cedd5935.webp',
+    },
+    description: meta.description,
+  })
+})
+useSeoMeta(meta)
 </script>
 
 <template>

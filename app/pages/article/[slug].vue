@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const route = useRoute()
 const slug = route.params.slug as string
+const pageStore = usePageStore()
 
 const { data: post } = await useAsyncData(`article-${slug}`, () => {
   return queryCollection('article').path(`/blog/article/${slug}`).first()
@@ -18,15 +19,23 @@ const toc = computed(() => {
   return post.value?.body?.toc?.links || []
 })
 
-// 设置页面元数据
-useHead({
-  title: post.value?.title || '文章',
-  meta: [
-    {
-      name: 'description',
-      content: post.value?.description || '',
+// 设置页面 store
+onMounted(() => {
+  const postData = post.value as any
+  const metaList = [postData?.author, postData?.date].filter(Boolean)
+  const postMeta = metaList.length > 0 ? metaList.join(' · ') : undefined
+
+  pageStore.setPageMeta({
+    banner: {
+      postTitle: post.value?.title || '文章',
+      postMeta,
     },
-  ],
+  })
+})
+
+// 设置 SEO meta
+useSeoMeta({
+  title: post.value?.title || '文章',
 })
 </script>
 

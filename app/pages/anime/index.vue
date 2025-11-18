@@ -11,16 +11,26 @@ import {
 import { cn } from '~/lib/utils'
 import { CollectionType, SubjectType } from '../../../shared/types/bangumi'
 
-definePageMeta({
-  bannerImage: 'http://127.0.0.1:9000/blog/2025/11/13/edf8e82c7c90de3ebbe2fb52b02eb18c.webp',
-  postMeta: {
-    title: '追番',
-    author: 'haoza',
-    date: '2025-11-11',
-  },
+const pageStore = usePageStore()
+const activeTab = ref(getWeekDayNumber(new Date()))
+
+const meta = {
+  title: '追番',
+  description: '我的动漫追番记录',
+}
+onMounted(() => {
+  pageStore.setPageMeta({
+    banner: {
+      postTitle: meta.title,
+      bannerImage: 'http://127.0.0.1:9000/blog/2025/11/13/edf8e82c7c90de3ebbe2fb52b02eb18c.webp',
+      postMeta: 'haoza · 2025-11-11',
+    },
+    description: meta.description,
+  })
+  loadWatchedData()
 })
 
-const activeTab = ref(getWeekDayNumber(new Date()))
+useSeoMeta(meta)
 
 const USERID = 877981
 
@@ -101,10 +111,6 @@ async function loadWatchedData() {
     watched.loading = false
   }
 }
-
-onMounted(() => {
-  loadWatchedData()
-})
 
 /** 获取星期几(数字) */
 function getWeekDayNumber(date: Date | string) {
