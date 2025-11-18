@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useLocalStorage } from '@vueuse/core'
 import Color from 'color'
+import { Check } from 'lucide-vue-next'
 import { Lunar } from 'lunar-typescript'
 import { ref } from 'vue'
 import {
@@ -118,7 +119,7 @@ function selectTheme(theme: typeof themeList[number]) {
             v-if="theme.name === selectedTheme"
             class="absolute right-2 top-2 h-6 w-6 flex items-center justify-center rounded-full bg-primary text-white shadow-lg"
           >
-            <div class="icon-[lucide--check] h-3 w-3" />
+            <Check class="h-3 w-3" />
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Folder, Search, Tag } from 'lucide-vue-next'
 import { navList } from '~/assets/data/nav'
 
 const navSearch = useTemplateRef('navSearch')
@@ -25,7 +26,7 @@ useSeoMeta(meta)
 <template>
   <div class="max-w-4xl mx-auto px-4">
     <p class="flex items-center text-sm text-muted-foreground cursor-pointer" @click="navSearch?.open()">
-      <span class="icon-[lucide--search] mr-1" />
+      <Search class="mr-1 h-4 w-4" />
       搜索站点、描述、标签(Ctrl+K 打开/关闭搜索面板)
     </p>
 
@@ -37,11 +38,11 @@ useSeoMeta(meta)
           <span class="text-sm text-muted-foreground">{{ item.desc }}</span>
         </div>
         <div class="flex items-center text-xs text-muted-foreground">
-          <span class="icon-[lucide--folder] mr-1" />
+          <Folder class="mr-1 h-3 w-3" />
           <span>{{ item.category }}</span>
           <span class="mx-1">•</span>
           <template v-for="(tag, index) in item.tags" :key="index">
-            <span class="icon-[lucide--tag] mr-1" />
+            <Tag class="mr-1 h-3 w-3" />
             <span class="mr-2">{{ tag }}</span>
           </template>
         </div>

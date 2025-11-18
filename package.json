@@ -36,8 +36,6 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^6.2.0",
-    "@iconify/json": "^2.2.408",
-    "@iconify/tailwind4": "^1.1.0",
     "@nuxt/eslint": "^1.10.0",
     "@nuxt/eslint-config": "^1.10.0",
     "@types/nprogress": "^0.2.3",

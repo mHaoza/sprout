@@ -2,6 +2,7 @@
 import type { NavItem } from '~/assets/data/nav'
 
 import { useMagicKeys } from '@vueuse/core'
+import { Folder, Tag } from 'lucide-vue-next'
 import { ref, watch } from 'vue'
 import { navList } from '~/assets/data/nav'
 import {
@@ -79,10 +80,10 @@ defineExpose({ open: () => open.value = true })
               <span class="text-sm text-muted-foreground">{{ item.desc }}</span>
             </div>
             <div class="flex items-center text-xs text-muted-foreground">
-              <span class="icon-[lucide--folder] mr-1" />
+              <Folder class="mr-1 h-3 w-3" />
               <span>{{ item.category }}</span>
               <span class="mx-1">•</span>
-              <span class="icon-[lucide--tag] mr-1" />
+              <Tag class="mr-1 h-3 w-3" />
               {{ item.tags.join(' ') }}
             </div>
           </div>
