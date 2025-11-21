@@ -10,7 +10,7 @@ onMounted(() => {
   pageStore.setPageMeta({
     banner: {
       postTitle: meta.title,
-      bannerImage: 'http://127.0.0.1:9000/blog/2025/11/13/22bba19e4ea5bb58162a93e439682efb.webp',
+      bannerImage: 'http://img.iice.fun/blog/2025/11/13/22bba19e4ea5bb58162a93e439682efb.webp',
       postMeta: 'haoza · 2025-11-11',
     },
     description: meta.description,

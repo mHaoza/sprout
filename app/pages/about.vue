@@ -11,7 +11,7 @@ onMounted(() => {
     banner: {
       postTitle: meta.title,
       postMeta: 'haoza · 2025-11-11',
-      bannerImage: 'http://127.0.0.1:9000/blog/2025/11/12/0a2de5843667391847c8b0800cc8059b.webp',
+      bannerImage: 'http://img.iice.fun/blog/2025/11/12/0a2de5843667391847c8b0800cc8059b.webp',
     },
     description: meta.description,
   })
