@@ -14,7 +14,7 @@ const hasBannerImage = computed(() => !!banner.value?.bannerImage)
     :key="route.path"
     :class="cn('banner relative h-100 flex flex-col items-center justify-center text-center')"
   >
-    <div v-if="hasBannerImage" class="banner-bg bg-black absolute z-[-1] left-0 top-0 w-full h-full filter-[brightness(.6)]">
+    <div v-if="hasBannerImage" class="banner-bg bg-black/30 absolute z-[-1] left-0 top-0 w-full h-full filter-[brightness(.6)]">
       <img
         :src="banner?.bannerImage"
         loading="lazy"
