@@ -3,11 +3,10 @@
 
 html {
   background-color: #fffbf0;
-  overflow: hidden;
 }
 
 body {
-  @apply h-screen w-full overflow-auto;
+  @apply h-screen w-full;
 }
 
 html::after {

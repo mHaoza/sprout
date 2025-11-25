@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useScroll } from '@vueuse/core'
 
-const { y } = useScroll(document?.body)
+const { y } = useScroll(document)
 
 const navList = [
   { path: '/', name: '首页' },

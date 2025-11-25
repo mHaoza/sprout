@@ -63,10 +63,10 @@ const progress = ref<number>(0)
 
 // 更新进度
 function updateProgress() {
-  const body = document.body
-  const scrollableHeight = body.scrollHeight - body.clientHeight
+  const html = document.documentElement
+  const scrollableHeight = html.scrollHeight - html.clientHeight
   if (scrollableHeight > 0) {
-    const scrolled = (body.scrollTop / scrollableHeight) * 100
+    const scrolled = (html.scrollTop / scrollableHeight) * 100
     progress.value = Math.round(Math.min(100, Math.max(0, scrolled)))
   }
   else {
@@ -293,7 +293,7 @@ onMounted(async () => {
   sync()
 
   useEventListener(window, 'resize', debouncedDrawPath)
-  useEventListener(document.body, 'scroll', throttledScroll, { passive: true })
+  useEventListener(document, 'scroll', throttledScroll, { passive: true })
 
   // 如果 URL 中已有 hash，滚动到对应位置
   if (window.location.hash) {
