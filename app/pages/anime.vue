@@ -1,22 +1,14 @@
 <script setup lang="ts">
 import { cn } from '~/lib/utils'
 
-const pageStore = usePageStore()
 const activeTab = ref(getWeekDayNumber(new Date()))
 
 const meta = {
   title: '追番',
   description: '我的动漫追番记录',
 }
+
 onMounted(() => {
-  pageStore.setPageMeta({
-    banner: {
-      postTitle: meta.title,
-      bannerImage: 'https://img.iice.fun/blog/2025/11/13/edf8e82c7c90de3ebbe2fb52b02eb18c.webp',
-      postMeta: 'haoza · 2025-11-11',
-    },
-    description: meta.description,
-  })
   loadWatchedData()
 })
 
@@ -111,141 +103,150 @@ function getWeekDayNumber(date: Date | string) {
 </script>
 
 <template>
-  <div class="mx-auto max-w-4xl p-4">
-    <h2 class="text-xl font-bold mt-12 mb-2">
-      追番
-    </h2>
-    <UiTabs
-      v-model="activeTab"
-      :class="cn('w-full p-2 bg-card/80 backdrop-blur-sm shadow-sm rounded-lg')"
-    >
-      <UiTabsList
-        :class="cn(
-          'mb-2 flex items-center justify-start gap-2',
-          'border-b border-border bg-transparent',
-          'px-2 pb-2 h-auto w-full rounded-none',
-        )"
+  <div>
+    <Banner
+      :title="meta.title"
+      image="https://img.iice.fun/blog/2025/11/13/edf8e82c7c90de3ebbe2fb52b02eb18c.webp"
+      author="haoza"
+      date="2025-11-11"
+    />
+
+    <div class="mx-auto max-w-4xl p-4">
+      <h2 class="text-xl font-bold mt-12 mb-2">
+        追番
+      </h2>
+      <UiTabs
+        v-model="activeTab"
+        :class="cn('w-full p-2 bg-card/80 backdrop-blur-sm shadow-sm rounded-lg')"
       >
-        <UiTabsTrigger
-          v-for="(item) in animeCalendarData"
-          :key="item.weekday.en"
-          :value="item.weekday.id"
+        <UiTabsList
           :class="cn(
-            'flex-none rounded-lg border-none px-4 py-2 font-medium',
-            'text-foreground bg-background',
-            'hover:bg-accent hover:text-accent-foreground',
-            'data-[state=active]:bg-primary data-[state=active]:text-primary-foreground',
-            'data-[state=active]:shadow-md',
-            'transition-all duration-200 ease-in-out',
-            'hover:scale-105',
-            'focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none',
+            'mb-2 flex items-center justify-start gap-2',
+            'border-b border-border bg-transparent',
+            'px-2 pb-2 h-auto w-full rounded-none',
           )"
         >
-          {{ item.weekday.cn }}
-        </UiTabsTrigger>
-      </UiTabsList>
-      <div class="px-2 py-3">
-        <UiTabsContent
-          v-for="(item) in animeCalendarData"
-          :key="item.weekday.en"
-          :value="item.weekday.id"
-        >
-          <div v-if="item.items.length > 0" class="grid grid-cols-6 w-full gap-4">
-            <a
-              v-for="collection in item.items"
-              :key="collection.subject.id"
-              :href="`https://bgm.tv/subject/${collection.subject.id}`"
-              :title="collection.subject.name_cn"
-              target="_blank"
-              :class="cn(
-                'group relative cursor-pointer overflow-hidden',
-                'aspect-[0.7] rounded-lg border border-border/50 shadow-sm transition-transform',
-                'hover:scale-[1.02] hover:shadow-lg',
-              )"
-            >
-              <img
-                :src="collection.subject.images.small"
-                class="pointer-events-none w-full h-full object-cover"
-                :alt="collection.subject.name_cn"
-              >
-              <div
+          <UiTabsTrigger
+            v-for="(item) in animeCalendarData"
+            :key="item.weekday.en"
+            :value="item.weekday.id"
+            :class="cn(
+              'flex-none rounded-lg border-none px-4 py-2 font-medium',
+              'text-foreground bg-background',
+              'hover:bg-accent hover:text-accent-foreground',
+              'data-[state=active]:bg-primary data-[state=active]:text-primary-foreground',
+              'data-[state=active]:shadow-md',
+              'transition-all duration-200 ease-in-out',
+              'hover:scale-105',
+              'focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none',
+            )"
+          >
+            {{ item.weekday.cn }}
+          </UiTabsTrigger>
+        </UiTabsList>
+        <div class="px-2 py-3">
+          <UiTabsContent
+            v-for="(item) in animeCalendarData"
+            :key="item.weekday.en"
+            :value="item.weekday.id"
+          >
+            <div v-if="item.items.length > 0" class="grid grid-cols-6 w-full gap-4">
+              <a
+                v-for="collection in item.items"
+                :key="collection.subject.id"
+                :href="`https://bgm.tv/subject/${collection.subject.id}`"
+                :title="collection.subject.name_cn"
+                target="_blank"
                 :class="cn(
-                  'absolute bottom-0 left-0 right-0 truncate',
-                  'bg-linear-to-t from-black/80 via-black/50 to-transparent',
-                  'p-2 pt-8 text-sm text-white text-center',
+                  'group relative cursor-pointer overflow-hidden',
+                  'aspect-[0.7] rounded-lg border border-border/50 shadow-sm transition-transform',
+                  'hover:scale-[1.02] hover:shadow-lg',
                 )"
               >
-                {{ collection.subject.name_cn }}
-              </div>
-            </a>
-          </div>
-          <div v-else class="py-12 text-center text-muted-foreground">
-            <p class="text-base">
-              暂无追番更新
-            </p>
-          </div>
-        </UiTabsContent>
-      </div>
-    </UiTabs>
-
-    <h2 class="text-xl font-bold mt-12 mb-2">
-      已看动画
-    </h2>
-
-    <div class="grid grid-cols-4 gap-4">
-      <a
-        v-for="collection in watched.data"
-        :key="collection.subject.id"
-        :href="`https://bgm.tv/subject/${collection.subject.id}`"
-        :title="collection.subject.name_cn"
-        target="_blank"
-        :class="cn(
-          'group relative cursor-pointer overflow-hidden',
-          'border border-border/50 shadow-sm',
-        )"
-      >
-        <div class="aspect-[0.7] pointer-events-none overflow-hidden">
-          <img
-            :src="collection.subject.images.medium"
-            class="w-full h-full transition-transform group-hover:scale-110"
-            :alt="collection.subject.name_cn"
-          >
+                <img
+                  :src="collection.subject.images.small"
+                  class="pointer-events-none w-full h-full object-cover"
+                  :alt="collection.subject.name_cn"
+                >
+                <div
+                  :class="cn(
+                    'absolute bottom-0 left-0 right-0 truncate',
+                    'bg-linear-to-t from-black/80 via-black/50 to-transparent',
+                    'p-2 pt-8 text-sm text-white text-center',
+                  )"
+                >
+                  {{ collection.subject.name_cn }}
+                </div>
+              </a>
+            </div>
+            <div v-else class="py-12 text-center text-muted-foreground">
+              <p class="text-base">
+                暂无追番更新
+              </p>
+            </div>
+          </UiTabsContent>
         </div>
-        <div :class="cn('truncate p-2 text-center')">
-          {{ collection.subject.name_cn }}
-        </div>
-      </a>
-    </div>
+      </UiTabs>
 
-    <!-- 加载更多 -->
-    <UiButton
-      v-if="watched.data.length > 0 && watched.data.length < watched.total"
-      :class="cn(
-        'flex items-center',
-        'mt-4 mx-auto text-foreground rounded-none cursor-pointer border-2',
-        'bg-transparent hover:bg-transparent hover:border-primary',
-      )"
-      @click="loadWatchedData"
-    >
-      加载更多
-      <UiSpinner v-if="watched.loading" />
-    </UiButton>
-    <div v-else-if="!watched.loading" class="py-12 text-center text-muted-foreground">
-      没有更多了~
-    </div>
+      <h2 class="text-xl font-bold mt-12 mb-2">
+        已看动画
+      </h2>
 
-    <!-- Bangumi 链接 -->
-    <div class="flex mt-8">
-      <p>
-        详细的记录，可以访问
+      <div class="grid grid-cols-4 gap-4">
         <a
-          href="https://bgm.tv/user/877981"
+          v-for="collection in watched.data"
+          :key="collection.subject.id"
+          :href="`https://bgm.tv/subject/${collection.subject.id}`"
+          :title="collection.subject.name_cn"
           target="_blank"
-          class="text-primary hover:underline"
+          :class="cn(
+            'group relative cursor-pointer overflow-hidden',
+            'border border-border/50 shadow-sm',
+          )"
         >
-          Bangumi
+          <div class="aspect-[0.7] pointer-events-none overflow-hidden">
+            <img
+              :src="collection.subject.images.medium"
+              class="w-full h-full transition-transform group-hover:scale-110"
+              :alt="collection.subject.name_cn"
+            >
+          </div>
+          <div :class="cn('truncate p-2 text-center')">
+            {{ collection.subject.name_cn }}
+          </div>
         </a>
-      </p>
+      </div>
+
+      <!-- 加载更多 -->
+      <UiButton
+        v-if="watched.data.length > 0 && watched.data.length < watched.total"
+        :class="cn(
+          'flex items-center',
+          'mt-4 mx-auto text-foreground rounded-none cursor-pointer border-2',
+          'bg-transparent hover:bg-transparent hover:border-primary',
+        )"
+        @click="loadWatchedData"
+      >
+        加载更多
+        <UiSpinner v-if="watched.loading" />
+      </UiButton>
+      <div v-else-if="!watched.loading" class="py-12 text-center text-muted-foreground">
+        没有更多了~
+      </div>
+
+      <!-- Bangumi 链接 -->
+      <div class="flex mt-8">
+        <p>
+          详细的记录，可以访问
+          <a
+            href="https://bgm.tv/user/877981"
+            target="_blank"
+            class="text-primary hover:underline"
+          >
+            Bangumi
+          </a>
+        </p>
+      </div>
     </div>
   </div>
 </template>

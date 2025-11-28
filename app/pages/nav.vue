@@ -3,28 +3,25 @@ import { Folder, Search, Tag } from 'lucide-vue-next'
 import { navList } from '~/assets/data/nav'
 
 const navSearch = useTemplateRef('navSearch')
-const pageStore = usePageStore()
 
 const meta = {
   title: '站点收藏',
   description: '我的站点收藏',
 }
 
-onMounted(() => {
-  pageStore.setPageMeta({
-    banner: {
-      postTitle: meta.title,
-      postMeta: 'haoza · 2025-11-11',
-      bannerImage: 'https://img.iice.fun/blog/2025/11/12/8684c11604f1fef29480ed31cedd5935.webp',
-    },
-    description: meta.description,
-  })
-})
 useSeoMeta(meta)
 </script>
 
 <template>
-  <div class="max-w-4xl mx-auto px-4 mt-6">
+  <div>
+    <Banner
+      :title="meta.title"
+      image="https://img.iice.fun/blog/2025/11/12/8684c11604f1fef29480ed31cedd5935.webp"
+      author="haoza"
+      date="2025-11-11"
+    />
+    
+    <div class="max-w-4xl mx-auto px-4 mt-6">
     <p class="flex items-center text-sm text-muted-foreground cursor-pointer" @click="navSearch?.open()">
       <Search class="mr-1 h-4 w-4" />
       搜索站点、描述、标签(Ctrl+K 打开/关闭搜索面板)
@@ -50,5 +47,6 @@ useSeoMeta(meta)
     </div>
 
     <NavSearch ref="navSearch" />
+    </div>
   </div>
 </template>

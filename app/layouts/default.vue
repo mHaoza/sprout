@@ -4,7 +4,6 @@
   <div class="default-layout">
     <Header />
     <main class="tracking-wide">
-      <Banner />
       <slot />
     </main>
   </div>
