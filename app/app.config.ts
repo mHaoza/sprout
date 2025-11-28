@@ -2,6 +2,6 @@ export default defineAppConfig({
   site: {
     name: '私の',
     author: 'mHaoza',
-    description: '这是我的博客，但并不会写什么有用的内容。',
+    description: '远离现实的藏身之处',
   },
 })

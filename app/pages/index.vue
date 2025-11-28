@@ -14,9 +14,12 @@ useSeoMeta({
         <div class="font-mingchao">
           {{ appConfig.site.name }}
         </div>
+        <div class="text-sm mt-4">
+          {{ appConfig.site.description }}
+        </div>
       </template>
     </Banner>
-    
+
     <div class="home">
       home
     </div>
