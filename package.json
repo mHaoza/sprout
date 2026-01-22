@@ -1,0 +1,45 @@
+{
+  "name": "sprout",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "oxlint --type-aware",
+    "lint:fix": "oxlint --type-aware --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "start": "node .output/server/index.mjs",
+    "sync-blog": "node scripts/sync-blog.ts"
+  },
+  "dependencies": {
+    "@iconify-json/lucide": "^1.2.86",
+    "@nuxt/content": "3.8.2",
+    "@nuxt/ui": "^4.4.0",
+    "@pinia/nuxt": "^0.11.3",
+    "@tailwindcss/vite": "^4.1.18",
+    "@vueuse/nuxt": "14.1.0",
+    "color": "^5.0.3",
+    "dayjs": "^1.11.19",
+    "lunar-typescript": "^1.8.6",
+    "nprogress": "^0.2.0",
+    "nuxt": "^4.2.2",
+    "tailwindcss": "^4.1.18",
+    "tw-animate-css": "^1.4.0",
+    "viewerjs": "^1.11.7",
+    "vue": "^3.5.27",
+    "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@types/nprogress": "^0.2.3",
+    "better-sqlite3": "^12.6.2",
+    "oxfmt": "^0.24.0",
+    "oxlint": "^1.41.0",
+    "oxlint-tsgolint": "^0.11.1",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.9.0+sha512.0486e394640d3c1fb3c9d43d49cf92879ff74f8516959c235308f5a8f62e2e19528a65cdc2a3058f587cde71eba3d5b56327c8c33a97e4c4051ca48a10ca2d5f"
+}

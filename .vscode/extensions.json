@@ -1,0 +1,16 @@
+{
+  "recommendations": [
+    "oxc.oxc-vscode",
+    // iconify
+    "afzalsayed96.icones",
+    "antfu.iconify",
+    // tailwindcss
+    "bradlc.vscode-tailwindcss",
+    // other...
+    "editorconfig.editorconfig",
+    "mhutchie.git-graph",
+    "naumovs.color-highlight",
+    "pkief.material-icon-theme",
+    "vue.volar"
+  ]
+}

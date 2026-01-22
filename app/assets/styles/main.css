@@ -1,0 +1,68 @@
+@import 'tailwindcss';
+@import '@nuxt/ui';
+@import 'tw-animate-css';
+@import '../fonts/fonts.css';
+
+/* 强制加载所有主题颜色 - 确保动态类名生效 */
+@source './safelist.txt';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* 字体配置 */
+  --font-mono:
+    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --font-mingchao: 'mingchao', var(--font-mono);
+  --color-bg-base: var(--background-base);
+}
+
+:root {
+  /* 底色 */
+  --background-base: #fffbf0;
+  /* 纹理 */
+  --texture: url('~/assets/textures/frosted.png');
+}
+
+html {
+  background-color: var(--background-base);
+}
+
+body {
+  @apply h-screen w-full bg-transparent;
+}
+
+html::after {
+  content: '';
+  @apply pointer-events-none fixed top-0 right-0 bottom-0 left-0 z-[-1];
+  background-image: var(--texture);
+}
+html::before {
+  content: '';
+  @apply pointer-events-none fixed top-0 right-0 bottom-0 left-0 z-[-1];
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: var(--bg-img);
+  background-size: 16vw auto;
+  background-position: 84vw bottom;
+  transition: background-image 0.8s;
+  opacity: 1;
+}
+
+*::selection {
+  @apply text-primary-300 bg-secondary-100/50;
+}
+
+/* 自定义滚动条样式 - 基于新的主题变量 */
+::-webkit-scrollbar {
+  @apply bg-secondary-100 h-1.25 w-1.25;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-primary-300 rounded-[3px];
+  transition: background-color 0.3s ease;
+}
+
+#nprogress .bar {
+  @apply bg-primary-300!;
+}

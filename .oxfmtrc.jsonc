@@ -1,0 +1,8 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "experimentalTailwindcss": {},
+  "singleQuote": true,
+  "semi": false,
+  "printWidth": null,
+  "ignorePatterns": [],
+}
