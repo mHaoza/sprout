@@ -25,7 +25,7 @@ function runBashCommand(command: string) {
 export async function syncBlogFromGit() {
   console.log('Syncing content files from git')
   if (fs.existsSync(CONTENT_PATH)) {
-    await runBashCommand(`cd ${CONTENT_PATH} && git pull`)
+    await runBashCommand(`cd ${CONTENT_PATH} && git fetch --all && git reset --hard origin/main`)
   } else {
     await runBashCommand(`git clone --depth 1 --single-branch ${REPO_URL} ${CONTENT_PATH}`)
   }
