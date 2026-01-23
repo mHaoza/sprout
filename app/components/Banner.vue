@@ -37,7 +37,7 @@ const hasMetaInfo = computed(() => props.author || props.date)
 
     <div
       :class="[
-        'animate-in fade-in slide-in-from-top-6 duration-600 ease-out',
+        'animate-in fade-in slide-in-from-top-6 duration-600 ease-out will-change-[transform,opacity]',
         hasBannerImage ? 'text-white' : 'mt-10',
       ]"
     >
@@ -48,27 +48,31 @@ const hasMetaInfo = computed(() => props.author || props.date)
       </div>
 
       <div v-if="hasMetaInfo" class="post-meta mt-4">
-        <div class="flex items-center justify-center">
+        <div class="flex flex-wrap items-center justify-center">
           <a href="/" class="hover:underline">
             {{ props.author ?? appConfig.site.author }}
           </a>
 
           <template v-if="props.category">
-            <UIcon name="i-lucide-dot" class="mx-1" />
-            <UIcon name="i-lucide-folder" class="mr-1 h-3.5 w-3.5" />
-            {{ props.category }}
+            <UIcon name="i-lucide-dot" class="mx-1 opacity-50" />
+            <div class="flex items-center">
+              <UIcon name="i-lucide-folder" class="mr-1.5 size-4" />
+              <span>{{ props.category }}</span>
+            </div>
           </template>
 
-          <template v-if="props.tags">
-            <UIcon name="i-lucide-dot" class="mx-1" />
-            <template v-for="(tag, index) in props.tags" :key="index">
-              <UIcon name="i-lucide-tag" class="mr-1 h-3.5 w-3.5" />
-              <span>{{ tag }}</span>
-            </template>
+          <template v-if="props.tags?.length">
+            <UIcon name="i-lucide-dot" class="mx-1 opacity-50" />
+            <div class="flex items-center gap-3">
+              <div v-for="(tag, index) in props.tags" :key="index" class="flex items-center">
+                <UIcon name="i-lucide-tag" class="mr-1 size-4" />
+                <span>{{ tag }}</span>
+              </div>
+            </div>
           </template>
 
           <template v-if="props.date">
-            <UIcon name="i-lucide-dot" class="mx-1" />
+            <UIcon name="i-lucide-dot" class="mx-1 opacity-50" />
             <span>{{ dayjs(props.date).format('YYYY-MM-DD') }}</span>
           </template>
         </div>
