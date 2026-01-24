@@ -91,14 +91,17 @@ function updateTocItems() {
 // 绘制 SVG 路径
 function drawPath() {
   const path = pathRef.value
-  if (!path) return
+  const nav = navRef.value
+  if (!path || !nav) return
 
   const pathCommands: string[] = []
   let pathIndent: number
+  const scrollOffset = nav.scrollTop
 
   tocItemsRef.value.forEach((item, i) => {
     const x = item.anchor.offsetLeft - 5
-    const y = item.anchor.offsetTop
+    // 减去滚动偏移量，使path坐标相对于可见区域
+    const y = item.anchor.offsetTop - scrollOffset
     const height = item.anchor.offsetHeight
 
     if (i === 0) {
@@ -278,7 +281,10 @@ onMounted(async () => {
 
   useEventListener(window, 'resize', debouncedDrawPath)
   useEventListener(document, 'scroll', throttledScroll, { passive: true })
-
+  // 监听nav自身的滚动，重新绘制path
+  if (navRef.value) {
+    useEventListener(navRef.value, 'scroll', debouncedDrawPath, { passive: true })
+  }
   // 如果 URL 中已有 hash，滚动到对应位置
   if (window.location.hash) {
     const id = window.location.hash.slice(1)
@@ -305,14 +311,18 @@ onMounted(async () => {
         <li v-for="item in flatToc" :key="item.id" class="group">
           <a
             :href="`#${item.id}`"
-            :class="[
-              'decoration-muted/40 hover:decoration-muted flex h-7 items-center underline underline-offset-4',
-              'group-[.active]:decoration-primary group-[.active]:font-semibold group-[.active]:decoration-2',
-              getIndent(item.depth),
-            ]"
+            :title="item.text"
+            :class="['flex h-7 items-center', getIndent(item.depth)]"
             @click="handleClick($event, item.id)"
           >
-            {{ item.text }}
+            <span
+              :class="[
+                'decoration-muted/40 hover:decoration-muted truncate underline underline-offset-4',
+                'group-[.active]:decoration-primary group-[.active]:font-semibold group-[.active]:decoration-2',
+              ]"
+            >
+              {{ item.text }}
+            </span>
           </a>
         </li>
       </ul>
