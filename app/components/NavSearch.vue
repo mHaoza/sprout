@@ -57,7 +57,7 @@ defineExpose({ open: () => (open.value = true) })
     v-model:open="open"
     :ui="{
       overlay: 'bg-transparent',
-      content: 'w-2xl max-w-none  *:bg-bg-base/20',
+      content: 'w-2xl max-w-none',
     }"
   >
     <template #content>

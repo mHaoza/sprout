@@ -77,7 +77,7 @@ function onPageChange(page: number) {
         :date="post.date"
         :to="getPostPath(post)"
         :ui="{
-          root: 'bg-bg-base border-2 hover:border-primary-500!',
+          root: 'border-2 hover:border-primary-500!',
           image: 'group-hover/blog-post:scale-100 ',
           title: 'group-hover/blog-post:text-primary-500',
           description: 'line-clamp-2',

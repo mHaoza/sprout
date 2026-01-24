@@ -13,22 +13,16 @@
   --font-mono:
     ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
   --font-mingchao: 'mingchao', var(--font-mono);
-  --color-bg-base: var(--background-base);
 }
 
 :root {
-  /* 底色 */
-  --background-base: #fffbf0;
+  --ui-bg: #fffbf0;
   /* 纹理 */
   --texture: url('~/assets/textures/frosted.png');
 }
 
-html {
-  background-color: var(--background-base);
-}
-
 body {
-  @apply h-screen w-full bg-transparent;
+  @apply h-screen w-full;
 }
 
 html::after {

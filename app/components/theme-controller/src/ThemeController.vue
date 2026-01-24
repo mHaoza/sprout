@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { themeList } from './theme-list'
 import { useThemeStore } from '~/stores/theme'
 
@@ -14,7 +14,7 @@ themeStore.init()
     v-model="panelVisible"
     :ui="{
       overlay: 'bg-transparent',
-      content: 'w-[90vw] max-w-6xl *:bg-bg-base',
+      content: 'w-[90vw] max-w-6xl',
     }"
   >
     <div
