@@ -58,7 +58,6 @@ onBeforeUnmount(() => {
   }
 })
 
-// 监听 post 变化，更新 viewer
 watch(
   () => props.post,
   async () => {
