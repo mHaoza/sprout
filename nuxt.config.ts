@@ -10,18 +10,11 @@ export default defineNuxtConfig({
       tailwindcss() as any,
       { src: '~/plugins/router-nprogress.client.ts', mode: 'client' },
     ],
-    // clearScreen: false,
-    // 启用环境变量
-    envPrefix: ['VITE_'],
-    // server: {
-    //   strictPort: true,
-    // },
     optimizeDeps: {
       include: ['@vueuse/core', 'vue', 'vue-router'],
       exclude: [
         '@nuxtjs/mdc',
         'remark-gfm',
-        'remark-emoji',
         'remark-mdc',
         'remark-rehype',
         'rehype-raw',
