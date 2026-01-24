@@ -28,7 +28,7 @@ const appConfig = useAppConfig()
 <template>
   <header
     class="bg-default sticky top-0 right-0 left-0 z-99 flex h-24 w-full flex-col items-center justify-between bg-(image:--texture) transition-[top]"
-    :class="{ '-top-11.25 shadow-md': scrolled }"
+    :class="{ '-top-11.25! shadow-md': scrolled }"
   >
     <NuxtLink to="/" class="font-mingchao my-3 text-3xl">
       {{ appConfig.site.name }}
