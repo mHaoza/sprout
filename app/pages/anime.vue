@@ -118,7 +118,6 @@ function getWeekDayNumber(date: Date | string) {
     <Banner
       :title="meta.title"
       image="https://img.iice.fun/blog/2025/11/13/edf8e82c7c90de3ebbe2fb52b02eb18c.webp"
-      author="haoza"
       date="2025-11-11"
     />
 

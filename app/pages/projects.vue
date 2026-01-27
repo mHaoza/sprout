@@ -40,7 +40,6 @@ const languageColors: Record<string, string> = {
     <Banner
       :title="meta.title"
       image="https://img.iice.fun/blog/2025/11/13/22bba19e4ea5bb58162a93e439682efb.webp"
-      author="haoza"
       date="2026-01-12"
     />
 
