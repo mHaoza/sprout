@@ -153,25 +153,35 @@ function getWeekDayNumber(date: Date | string) {
               title="加载中..."
             />
             <div v-else-if="item.items.length > 0" class="grid w-full grid-cols-6 gap-4">
-              <a
+              <UPopover
                 v-for="collection in item.items"
                 :key="collection.subject.id"
-                :href="`https://bgm.tv/subject/${collection.subject.id}`"
-                :title="collection.subject.name_cn"
-                target="_blank"
-                class="group relative aspect-[0.7] cursor-pointer overflow-hidden rounded-lg shadow-sm transition-transform hover:scale-[1.02] hover:shadow-lg"
+                mode="hover"
+                :popper="{ placement: 'right-start', offset: [8, 0] }"
+                class="group"
               >
-                <img
-                  :src="collection.subject.images.small"
-                  class="pointer-events-none h-full w-full object-cover"
-                  :alt="collection.subject.name_cn"
-                />
-                <div
-                  class="absolute right-0 bottom-0 left-0 truncate bg-linear-to-t from-gray-900/80 via-gray-900/50 to-transparent p-2 pt-8 text-center text-sm text-white"
-                >
-                  {{ collection.subject.name_cn }}
-                </div>
-              </a>
+                <template #default>
+                  <a
+                    :href="`https://bgm.tv/subject/${collection.subject.id}`"
+                    target="_blank"
+                    class="relative block aspect-[0.7] cursor-pointer overflow-hidden rounded-lg shadow-sm transition-transform hover:scale-[1.02] hover:shadow-lg"
+                  >
+                    <img
+                      :src="collection.subject.images.small"
+                      class="pointer-events-none h-full w-full object-cover"
+                      :alt="collection.subject.name_cn"
+                    />
+                    <div
+                      class="absolute right-0 bottom-0 left-0 truncate bg-linear-to-t from-gray-900/80 via-gray-900/50 to-transparent p-2 pt-8 text-center text-sm text-white"
+                    >
+                      {{ collection.subject.name_cn }}
+                    </div>
+                  </a>
+                </template>
+                <template #content>
+                  <AnimePopover :collection="collection" />
+                </template>
+              </UPopover>
             </div>
             <UEmpty
               v-else
