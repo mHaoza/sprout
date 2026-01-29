@@ -59,8 +59,8 @@ watch(
 </script>
 
 <template>
-  <div class="w-full max-w-xs p-4">
-    <div v-if="loading" class="py-8 text-center text-gray-400">加载中...</div>
+  <div class="min-h-64 w-xs p-4">
+    <div v-if="loading" class="py-24 text-center text-gray-400">加载中...</div>
     <div v-else-if="detail">
       <div class="mb-2 flex gap-3">
         <div class="flex-1">

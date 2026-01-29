@@ -155,8 +155,8 @@ function getWeekDayNumber(date: Date | string) {
               <UPopover
                 v-for="collection in item.items"
                 :key="collection.subject.id"
+                :content="{ side: 'top' }"
                 mode="hover"
-                :popper="{ placement: 'right-start', offset: [8, 0] }"
                 class="group"
               >
                 <template #default>
