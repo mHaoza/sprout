@@ -72,7 +72,7 @@ themeStore.init()
             </div>
 
             <div
-              class="from-bg-base absolute bottom-0 bg-linear-to-t from-50% to-transparent p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              class="bg-linear-to-t` absolute bottom-0 w-full from-white from-50% to-transparent p-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 dark:from-gray-900"
               :class="`text-${theme.colors.primary}-500`"
             >
               <h3 class="mb-1 text-sm font-bold">
