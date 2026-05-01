@@ -6,7 +6,7 @@ const { y } = useScroll(document)
 const navList = [
   { path: '/', name: '首页' },
   { path: '/anime', name: '追番' },
-  { path: '/projects', name: '项目' },
+  // { path: '/projects', name: '项目' },
   { path: '/links', name: '友链' },
   { path: '/about', name: '关于' },
 ]
@@ -16,6 +16,10 @@ const moreItems: NavigationMenuItem[][] = [
     {
       label: '我的前端实践方案',
       to: '/more/frontend-stack',
+    },
+    {
+      label: '足迹',
+      to: '/footprints',
     },
   ],
 ]
