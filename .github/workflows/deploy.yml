@@ -1,0 +1,45 @@
+name: Deploy to Tencent Cloud COS
+
+on:
+  push:
+    branches:
+      - main # 或者你的主分支名称
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 获取完整历史以防脚本需要
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22 # 建议使用最新的 LTS 或你开发使用的版本
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Sync blog articles
+        run: pnpm run sync-blog
+
+      - name: Build project
+        run: pnpm run generate
+
+      - name: Deploy to Tencent Cloud COS
+        uses: TencentCloud/cos-action@v1
+        with:
+          secret_id: ${{ secrets.COS_SECRET_ID }}
+          secret_key: ${{ secrets.COS_SECRET_KEY }}
+          cos_bucket: ${{ secrets.COS_BUCKET }}
+          cos_region: ${{ secrets.COS_REGION }}
+          local_path: .output/public
+          remote_path: /
+          clean: true
