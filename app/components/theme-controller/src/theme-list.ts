@@ -7,7 +7,7 @@ export const themeList = [
       secondary: 'green',
     },
     poetry: '东风解冻，蛰虫始振，鱼陟负冰',
-    poetryPicture: '/imgs/HeiSolarTerms/202401_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202401.png',
   },
   {
     name: '雨水',
@@ -17,7 +17,7 @@ export const themeList = [
       secondary: 'cyan',
     },
     poetry: '獭祭鱼，鸿雁来，草木萌动',
-    poetryPicture: '/imgs/HeiSolarTerms/202402_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202402.png',
   },
   {
     name: '惊蛰',
@@ -27,7 +27,7 @@ export const themeList = [
       secondary: 'lime',
     },
     poetry: '桃始华，仓庚鸣，鹰化为鸠',
-    poetryPicture: '/imgs/HeiSolarTerms/202403_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202403.png',
   },
   {
     name: '春分',
@@ -37,7 +37,7 @@ export const themeList = [
       secondary: 'purple',
     },
     poetry: '玄鸟至，雷乃发声，始电',
-    poetryPicture: '/imgs/HeiSolarTerms/202404_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202404.png',
   },
   {
     name: '清明',
@@ -47,7 +47,7 @@ export const themeList = [
       secondary: 'cyan',
     },
     poetry: '桐始华，田鼠化为鴽，虹始见',
-    poetryPicture: '/imgs/HeiSolarTerms/202405_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202405.png',
   },
   {
     name: '谷雨',
@@ -57,7 +57,7 @@ export const themeList = [
       secondary: 'emerald',
     },
     poetry: '萍始生，鸣鸠拂其羽，戴胜降于桑',
-    poetryPicture: '/imgs/HeiSolarTerms/202406_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202406.png',
   },
   {
     name: '立夏',
@@ -67,7 +67,7 @@ export const themeList = [
       secondary: 'amber',
     },
     poetry: '蝼蝈鸣，蚯蚓出，王瓜生',
-    poetryPicture: '/imgs/HeiSolarTerms/202407_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202407.png',
   },
   {
     name: '小满',
@@ -77,7 +77,7 @@ export const themeList = [
       secondary: 'yellow',
     },
     poetry: '苦菜秀，靡草死，麦秋至',
-    poetryPicture: '/imgs/HeiSolarTerms/202408_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202408.png',
   },
   {
     name: '芒种',
@@ -87,7 +87,7 @@ export const themeList = [
       secondary: 'amber',
     },
     poetry: '螳螂生，鵙始鸣，反舌无声',
-    poetryPicture: '/imgs/HeiSolarTerms/202409_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202409.png',
   },
   {
     name: '夏至',
@@ -97,7 +97,7 @@ export const themeList = [
       secondary: 'orange',
     },
     poetry: '鹿角解，蜩始鸣，半夏生',
-    poetryPicture: '/imgs/HeiSolarTerms/202410_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202410.png',
   },
   {
     name: '小暑',
@@ -107,7 +107,7 @@ export const themeList = [
       secondary: 'pink',
     },
     poetry: '温风至，蟋蟀居宇，鹰始挚',
-    poetryPicture: '/imgs/HeiSolarTerms/202411_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202411.png',
   },
   {
     name: '大暑',
@@ -117,7 +117,7 @@ export const themeList = [
       secondary: 'rose',
     },
     poetry: '腐草为萤，土润溽暑，大雨时行',
-    poetryPicture: '/imgs/HeiSolarTerms/202412_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202412.png',
   },
   {
     name: '立秋',
@@ -127,7 +127,7 @@ export const themeList = [
       secondary: 'orange',
     },
     poetry: '凉风至，白露生，寒蝉鸣',
-    poetryPicture: '/imgs/HeiSolarTerms/202413_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202413.png',
   },
   {
     name: '处暑',
@@ -137,7 +137,7 @@ export const themeList = [
       secondary: 'yellow',
     },
     poetry: '鹰乃祭鸟，天地始肃，禾乃登',
-    poetryPicture: '/imgs/HeiSolarTerms/202414_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202414.png',
   },
   {
     name: '白露',
@@ -147,7 +147,7 @@ export const themeList = [
       secondary: 'sky',
     },
     poetry: '鸿雁来，玄鸟归，群鸟养羞',
-    poetryPicture: '/imgs/HeiSolarTerms/202415_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202415.png',
   },
   {
     name: '秋分',
@@ -157,7 +157,7 @@ export const themeList = [
       secondary: 'stone',
     },
     poetry: '雷始收声，蛰虫坯户，水始涸',
-    poetryPicture: '/imgs/HeiSolarTerms/202416_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202416.png',
   },
   {
     name: '寒露',
@@ -167,7 +167,7 @@ export const themeList = [
       secondary: 'sky',
     },
     poetry: '鸿雁来宾，雀入大水为蛤，菊有黄华',
-    poetryPicture: '/imgs/HeiSolarTerms/202417_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202417.png',
   },
   {
     name: '霜降',
@@ -177,7 +177,7 @@ export const themeList = [
       secondary: 'gray',
     },
     poetry: '豺乃祭兽，草木黄落，蛰虫咸俯',
-    poetryPicture: '/imgs/HeiSolarTerms/202418_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202418.png',
   },
   {
     name: '立冬',
@@ -187,7 +187,7 @@ export const themeList = [
       secondary: 'blue',
     },
     poetry: '水始冰，地始冻，雉入大水为蜃',
-    poetryPicture: '/imgs/HeiSolarTerms/202419_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202419.png',
   },
   {
     name: '小雪',
@@ -197,7 +197,7 @@ export const themeList = [
       secondary: 'cyan',
     },
     poetry: '虹藏不见，天气上升，闭塞成冬',
-    poetryPicture: '/imgs/HeiSolarTerms/202420_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202420.png',
   },
   {
     name: '大雪',
@@ -207,7 +207,7 @@ export const themeList = [
       secondary: 'slate',
     },
     poetry: '鹖鴠不鸣，虎始交，荔挺出',
-    poetryPicture: '/imgs/HeiSolarTerms/202421_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202421.png',
   },
   {
     name: '冬至',
@@ -217,7 +217,7 @@ export const themeList = [
       secondary: 'indigo',
     },
     poetry: '蚯蚓结，麋角解，水泉动',
-    poetryPicture: '/imgs/HeiSolarTerms/202422_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202422.png',
   },
   {
     name: '小寒',
@@ -227,7 +227,7 @@ export const themeList = [
       secondary: 'violet',
     },
     poetry: '雁北乡，鹊始巢，雉始鸲',
-    poetryPicture: '/imgs/HeiSolarTerms/202423_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202423.png',
   },
   {
     name: '大寒',
@@ -237,6 +237,6 @@ export const themeList = [
       secondary: 'slate',
     },
     poetry: '鸡乳，征鸟厉疾，水泽腹坚',
-    poetryPicture: '/imgs/HeiSolarTerms/202424_poetry.png',
+    poetryPicture: 'https://img.iice.fun/hei/HeiSolarTerms/202424.png',
   },
 ]
