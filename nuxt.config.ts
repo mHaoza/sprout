@@ -28,6 +28,12 @@ export default defineNuxtConfig({
       noExternal: ['@vueuse/core', 'vue', 'vue-router'],
     },
   },
+  nitro: {
+    prerender: {
+      routes: ['/'],
+      crawlLinks: true,
+    },
+  },
   modules: ['@pinia/nuxt', '@nuxt/ui', '@nuxt/content', '@vueuse/nuxt'],
   css: ['~/assets/styles/main.css'],
   icon: {
