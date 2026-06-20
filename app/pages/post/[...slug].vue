@@ -1,3 +1,5 @@
 <template>
-  <PostView collection="articles" />
+  <ClientOnly>
+    <PostView collection="articles" />
+  </ClientOnly>
 </template>

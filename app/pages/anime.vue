@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const activeTab = ref(getWeekDayNumber(new Date()))
+const activeTab = ref(1)
 
 const meta = {
   title: '追番',
@@ -7,6 +7,7 @@ const meta = {
 }
 
 onMounted(() => {
+  activeTab.value = getWeekDayNumber(new Date()) || 1
   loadWatchedData()
 })
 
