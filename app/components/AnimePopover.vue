@@ -120,7 +120,7 @@ watch(
           variant="link"
           size="sm"
           :to="
-            `https://www.agedm.io/search?query=` + encodeURIComponent(detail.name || detail.name_cn)
+            `https://www.agedm.io/search?query=` + encodeURIComponent(detail.name_cn || detail.name)
           "
           target="_blank"
           class="flex items-center gap-1"
