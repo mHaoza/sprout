@@ -109,16 +109,6 @@ watch(
         <UButton
           variant="link"
           size="sm"
-          :to="`https://dm.xifanacg.com/search.html?wd=` + encodeURIComponent(detail.name_cn)"
-          target="_blank"
-          class="flex items-center gap-1"
-        >
-          稀饭动漫
-          <UIcon name="i-lucide-external-link" />
-        </UButton>
-        <UButton
-          variant="link"
-          size="sm"
           :to="
             `https://www.agedm.io/search?query=` + encodeURIComponent(detail.name || detail.name_cn)
           "
