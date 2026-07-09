@@ -120,12 +120,24 @@ watch(
           variant="link"
           size="sm"
           :to="
-            `https://www.agedm.io/search?query=` + encodeURIComponent(detail.name_cn || detail.name)
+            `https://www.agedm.io/search?query=` + encodeURIComponent(detail.name || detail.name_cn)
           "
           target="_blank"
           class="flex items-center gap-1"
         >
           AGE动漫
+          <UIcon name="i-lucide-external-link" />
+        </UButton>
+        <UButton
+          variant="link"
+          size="sm"
+          :to="
+            `https://www.agedm.io/search?query=` + encodeURIComponent(detail.name_cn || detail.name)
+          "
+          target="_blank"
+          class="flex items-center gap-1"
+        >
+          AGE动漫(中文)
           <UIcon name="i-lucide-external-link" />
         </UButton>
       </div>
