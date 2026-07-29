@@ -13,14 +13,9 @@ const navList = [
 
 const moreItems: NavigationMenuItem[][] = [
   [
-    {
-      label: '我的前端实践方案',
-      to: '/more/frontend-stack',
-    },
-    {
-      label: '足迹',
-      to: '/footprints',
-    },
+    { label: '网址收藏归档', to: '/more/links-archive' },
+    { label: '我的前端实践方案', to: '/more/frontend-stack' },
+    { label: '足迹', to: '/footprints' },
   ],
 ]
 
