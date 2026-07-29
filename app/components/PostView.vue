@@ -2,14 +2,9 @@
 const route = useRoute()
 const appConfig = useAppConfig()
 
-const props = withDefaults(
-  defineProps<{
-    collection?: string
-  }>(),
-  {
-    collection: 'articles',
-  },
-)
+const props = withDefaults(defineProps<{ collection?: string }>(), {
+  collection: 'articles',
+})
 
 const slug = route.params.slug as string
 const slugPath = Array.isArray(slug) ? slug.join('/') : slug
@@ -22,21 +17,14 @@ const { data: post } = await useAsyncData(`post-${props.collection}-${slugPath}`
 })
 
 if (!post.value) {
-  throw createError({
-    statusCode: 404,
-    statusMessage: '文章未找到',
-  })
+  throw createError({ statusCode: 404, statusMessage: '文章未找到' })
 }
 
-// 获取 TOC 数据
-const toc = computed(() => {
-  return post.value?.body?.toc?.links || []
-})
-
+setTimeout(() => {
+  console.log(11, post.value?.body?.toc?.links)
+}, 1000)
 // 设置 SEO meta
-useSeoMeta({
-  title: post.value?.title || '文章',
-})
+useSeoMeta({ title: post.value?.title || '文章' })
 </script>
 
 <template>
@@ -54,9 +42,14 @@ useSeoMeta({
       <div class="flex gap-8">
         <PostContent :post="post" class="min-w-0 flex-1" />
 
-        <div v-if="toc.length > 0" class="relative hidden w-0 xl:block">
+        <div class="relative hidden w-0 xl:block">
           <div class="sticky top-24 ml-8 w-72">
-            <PostTOC :toc="toc" :stagger="0" />
+            <UContentToc
+              highlight
+              highlight-color="primary"
+              highlight-variant="circuit"
+              :links="post?.body?.toc?.links"
+            />
           </div>
         </div>
       </div>
