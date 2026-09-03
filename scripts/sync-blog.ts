@@ -1,7 +1,7 @@
 import { spawn } from 'node:child_process'
 import fs from 'node:fs'
 
-const REPO_URL = 'https://github.com/mHaoza/blog.git'
+const REPO_URL = 'https://gitcode.com/mHaoza/blog.git'
 const CONTENT_PATH = './content/blog'
 
 function runBashCommand(command: string) {
