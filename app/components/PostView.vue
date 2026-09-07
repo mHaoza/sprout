@@ -20,9 +20,6 @@ if (!post.value) {
   throw createError({ statusCode: 404, statusMessage: '文章未找到' })
 }
 
-setTimeout(() => {
-  console.log(11, post.value?.body?.toc?.links)
-}, 1000)
 // 设置 SEO meta
 useSeoMeta({ title: post.value?.title || '文章' })
 </script>

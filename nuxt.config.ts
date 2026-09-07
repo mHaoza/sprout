@@ -4,12 +4,8 @@ import { defineNuxtConfig } from 'nuxt/config'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
-  devServer: { host: 'localhost' },
   vite: {
-    plugins: [
-      tailwindcss() as any,
-      { src: '~/plugins/router-nprogress.client.ts', mode: 'client' },
-    ],
+    plugins: [tailwindcss() as any],
     optimizeDeps: {
       include: ['@vueuse/core', 'vue', 'vue-router'],
       exclude: [
@@ -28,6 +24,7 @@ export default defineNuxtConfig({
       noExternal: ['@vueuse/core', 'vue', 'vue-router'],
     },
   },
+  plugins: [{ src: '~/plugins/router-nprogress.client.ts', mode: 'client' }],
   nitro: {
     prerender: {
       routes: ['/'],
