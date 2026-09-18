@@ -2,14 +2,10 @@
 /**
  * 返回上一层的粘性链接
  *
- * 父级路由的展示名与目标地址可以在这里集中配置
+ * 父级地址直接由当前路径推导：父级路径 + 该段首字母大写作为展示名。
+ * 例如 `/articles/001-xxx` → `{ href: '/articles', name: 'Articles' }`。
  */
 const route = useRoute()
-
-const PARENT_OVERRIDES: Record<string, { href: string; name: string }> = {
-  post: { href: '/articles', name: 'Articles' },
-  more: { href: '/more', name: 'More' },
-}
 
 const parent = computed(() => {
   const segments = route.path.split('/').filter(Boolean)
@@ -21,8 +17,6 @@ const parent = computed(() => {
   }
 
   const key = parentSegments[parentSegments.length - 1]!
-  const override = PARENT_OVERRIDES[key]
-  if (override) return override
 
   return {
     href: `/${parentSegments.join('/')}`,

@@ -46,6 +46,16 @@ export default defineContentConfig({
       type: 'page',
       schema: articleSchema,
     }),
+    stack: defineCollection({
+      source: 'blog/stack/**/*.md',
+      type: 'page',
+      schema: articleSchema,
+    }),
+    life: defineCollection({
+      source: 'blog/life/**/*.md',
+      type: 'page',
+      schema: articleSchema,
+    }),
     more: defineCollection({
       source: 'blog/more/**/*.md',
       type: 'page',

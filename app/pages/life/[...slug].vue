@@ -7,8 +7,8 @@ const slug = computed(() => {
 })
 
 const { data: post } = await useAsyncData(
-  () => `more-${slug.value}`,
-  () => queryCollection('more').where('path', 'LIKE', `%/${slug.value}`).first(),
+  () => `life-${slug.value}`,
+  () => queryCollection('life').where('path', 'LIKE', `%/${slug.value}`).first(),
   { watch: [slug] },
 )
 

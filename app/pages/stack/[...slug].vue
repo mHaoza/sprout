@@ -7,13 +7,13 @@ const slug = computed(() => {
 })
 
 const { data: post } = await useAsyncData(
-  () => `post-articles-${slug.value}`,
-  () => queryCollection('articles').where('path', 'LIKE', `%/${slug.value}`).first(),
+  () => `stack-${slug.value}`,
+  () => queryCollection('stack').where('path', 'LIKE', `%/${slug.value}`).first(),
   { watch: [slug] },
 )
 
 if (!post.value) {
-  throw createError({ statusCode: 404, message: '文章未找到', fatal: true })
+  throw createError({ statusCode: 404, message: '页面未找到', fatal: true })
 }
 
 useSeoMeta({

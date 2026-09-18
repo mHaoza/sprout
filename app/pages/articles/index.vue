@@ -13,7 +13,7 @@ const groups = computed(() =>
     (posts.value ?? []).map((post) => ({
       title: post.title,
       date: post.date,
-      to: articlePath(post.path),
+      to: contentPath('articles', post.path),
     })),
   ),
 )
