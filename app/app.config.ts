@@ -2,7 +2,7 @@ export default defineAppConfig({
   site: {
     name: '私の',
     author: 'mHaoza',
-    description: '远离现实的藏身之处',
+    description: '远离现实的藏身处',
     /** 首页签名右侧的身份标签 */
     role: 'Full-Stack Developer',
     /** 首页问候语 */
