@@ -6,7 +6,6 @@ import { zh_cn } from '@nuxt/ui/locale'
   <UApp :locale="zh_cn">
     <NuxtLayout>
       <NuxtPage />
-      <ThemeController />
     </NuxtLayout>
   </UApp>
 </template>

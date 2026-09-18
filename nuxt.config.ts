@@ -25,6 +25,18 @@ export default defineNuxtConfig({
     },
   },
   plugins: [{ src: '~/plugins/router-nprogress.client.ts', mode: 'client' }],
+  app: {
+    head: {
+      link: [
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap',
+        },
+      ],
+    },
+  },
   nitro: {
     prerender: {
       routes: ['/'],
@@ -50,10 +62,7 @@ export default defineNuxtConfig({
     build: {
       markdown: {
         highlight: {
-          theme: {
-            default: 'material-theme-lighter',
-            dark: 'material-theme-palenight',
-          },
+          theme: 'rose-pine-dawn',
           langs: [
             'javascript',
             'typescript',

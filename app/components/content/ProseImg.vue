@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import PhotoView from '@/components/blog/PhotoView.vue'
-
 interface Props {
   src?: string
   alt?: string

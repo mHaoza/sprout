@@ -3,45 +3,186 @@
 @import 'tw-animate-css';
 @import '../fonts/fonts.css';
 
+@plugin '@tailwindcss/typography';
+
 /* 强制加载所有主题颜色 - 确保动态类名生效 */
 @source './safelist.txt';
 
 @custom-variant dark (&:is(.dark *));
 
+/* ==================================================================
+ * 语义色板
+ * 命名参考 shiyu.me 使用的 Rosé Pine 调色板（语义化令牌）。
+ * 强调色（love / rose）绑定到节气换肤的 primary，确保换肤依然生效。
+ * ================================================================== */
+@theme {
+  --color-base: #fffbf0;
+  --color-surface: #fffaf3;
+  --color-overlay: #f0e6dc;
+  --color-muted: #9893a5;
+  --color-subtle: #797593;
+  --color-text: #575279;
+
+  --color-love: var(--ui-primary);
+  --color-gold: #ea9d34;
+  --color-rose: var(--ui-primary);
+  --color-pine: #286983;
+  --color-foam: #56949f;
+  --color-iris: #907aa9;
+}
+
 @theme inline {
   /* 字体配置 */
+  --font-sans:
+    'Merriweather', 'Noto Serif SC', 'Songti SC', ui-serif, Georgia, Cambria, 'Times New Roman',
+    serif;
   --font-mono:
-    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
-  --font-mingchao: 'mingchao', var(--font-mono);
+    'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
+    monospace;
+  --font-mingchao: 'mingchao', var(--font-sans);
+
+  --animate-slide-enter: slide-enter 0.8s backwards;
+  --animate-spinner-scale: spinner-scale var(--duration, 30s) var(--delay, 30s)
+    cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite;
+
+  @keyframes slide-enter {
+    0% {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes spinner-scale {
+    0% {
+      transform: scaley(1);
+    }
+    50% {
+      transform: scaley(0.4);
+    }
+    100% {
+      transform: scaley(1);
+    }
+  }
 }
 
 :root {
   --ui-bg: #fffbf0;
   /* 纹理 */
   --texture: url('~/assets/textures/frosted.png');
+
+  /* ------------------------------------------------------------------
+   * 把 Nuxt UI 的语义令牌映射到上面的色板。
+   * 这里的声明位于 @layer 之外，因此优先级高于 Nuxt UI 自带的令牌定义，
+   * 避免 `text-muted` / `bg-muted` 这类类名落到默认的 slate 色阶上。
+   * ------------------------------------------------------------------ */
+  --ui-text-dimmed: var(--color-muted);
+  --ui-text-muted: var(--color-muted);
+  --ui-text-toned: var(--color-subtle);
+  --ui-text: var(--color-text);
+  --ui-text-highlighted: var(--color-text);
+  --ui-text-inverted: var(--color-base);
+  --ui-bg-muted: var(--color-overlay);
+  --ui-bg-elevated: var(--color-surface);
+  --ui-bg-accented: var(--color-overlay);
+  --ui-border: var(--color-overlay);
+  --ui-border-muted: var(--color-overlay);
+  --ui-border-accented: var(--color-overlay);
+  --ui-border-inverted: var(--color-text);
 }
 
-body {
-  @apply h-screen w-full;
-}
+/* ==================================================================
+ * 基础样式
+ * ================================================================== */
+@layer base {
+  :root {
+    @apply scroll-smooth;
+  }
 
-html::after {
-  content: '';
-  @apply pointer-events-none fixed top-0 right-0 bottom-0 left-0 z-[-1];
-  background-image: var(--texture);
-}
-html::before {
-  content: '';
-  @apply pointer-events-none fixed top-0 right-0 bottom-0 left-0 z-[-1];
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-image: var(--bg-img);
-  background-size: 16vw auto;
-  background-position: 84vw bottom;
-  transition: background-image 0.8s;
-  opacity: 1;
+  html {
+    color-scheme: light;
+    scrollbar-color: var(--color-muted) transparent;
+    scrollbar-width: thin;
+    /* background-color: var(--ui-bg); */
+  }
+
+  *,
+  ::after,
+  ::before {
+    @apply border-overlay;
+  }
+
+  body {
+    @apply text-text mx-auto flex min-h-screen max-w-2xl flex-col px-4 font-sans font-medium tabular-nums antialiased;
+    @apply selection:bg-overlay;
+  }
+
+  /* Nuxt 根节点默认是 block，会切断 body 的纵向 flex 链，
+     导致 `main` 的 flex-1 与 footer 的 mt-auto 双双失效（内容不足时 footer 跟着往上跑）。
+     这里让它撑满 body 剩余高度并成为 flex 容器，footer 才能稳定贴底。 */
+  #__nuxt {
+    @apply flex flex-1 flex-col;
+  }
+
+  h2,
+  h3 {
+    @apply scroll-mt-8;
+  }
+
+  code {
+    @apply bg-overlay rounded-md px-1 py-0.5;
+
+    &::before,
+    &::after {
+      @apply content-none!;
+    }
+  }
+
+  pre code {
+    @apply bg-transparent p-0;
+  }
+
+  /* 代码块：底色跟随 prose 的 surface，并去掉 Nuxt UI 默认的边框 */
+  pre {
+    @apply bg-surface! border-0!;
+  }
+
+  code[data-theme],
+  code[data-theme] span {
+    @apply font-medium;
+  }
+
+  blockquote {
+    p {
+      &:first-child::before,
+      &:last-child::after {
+        @apply content-none!;
+      }
+    }
+  }
+
+  html::after {
+    content: '';
+    @apply pointer-events-none fixed top-0 right-0 bottom-0 left-0 z-[-1];
+    background-image: var(--texture);
+  }
+
+  html::before {
+    content: '';
+    @apply pointer-events-none fixed top-0 right-0 bottom-0 left-0 z-[-1];
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: var(--bg-img);
+    background-size: 16vw auto;
+    background-position: 84vw bottom;
+    transition: background-image 0.8s;
+    opacity: 1;
+  }
 }
 
 *::selection {
@@ -59,4 +200,114 @@ html::before {
 
 #nprogress .bar {
   @apply bg-primary-300!;
+}
+
+/* ==================================================================
+ * 排版 / 页面对齐
+ * ================================================================== */
+@utility prose-rosepine {
+  --tw-prose-body: var(--color-text);
+  --tw-prose-headings: var(--color-text);
+  --tw-prose-lead: var(--color-text);
+  --tw-prose-links: var(--color-rose);
+  --tw-prose-bold: var(--color-text);
+  --tw-prose-counters: var(--color-subtle);
+  --tw-prose-bullets: var(--color-subtle);
+  --tw-prose-hr: var(--color-overlay);
+  --tw-prose-quotes: var(--color-text);
+  --tw-prose-quote-borders: var(--color-overlay);
+  --tw-prose-kbd: var(--color-text);
+  --tw-prose-kbd-shadows: var(--color-text);
+  --tw-prose-captions: var(--color-text);
+  --tw-prose-code: var(--color-rose);
+  --tw-prose-pre-code: var(--color-muted);
+  --tw-prose-pre-bg: var(--color-surface);
+  --tw-prose-th-borders: var(--color-overlay);
+  --tw-prose-td-borders: var(--color-overlay);
+}
+
+@utility page {
+  @apply w-full flex-1 space-y-12 py-20 max-md:py-12;
+}
+
+/* 带 ┓ 标记的链接（View All / 文章标题） */
+@utility link {
+  @apply relative inline-block w-fit pr-2 underline underline-offset-2 duration-300;
+
+  &::before {
+    content: '┓';
+    @apply absolute top-1/2 -right-1 translate-y-[-1.6em] text-xs leading-[inherit] opacity-100 transition-opacity duration-300;
+  }
+
+  &[href^='#'] {
+    @apply text-text font-bold no-underline;
+    &::before {
+      content: '#';
+      @apply text-subtle top-auto right-auto -translate-x-5 translate-y-0 opacity-0;
+      font-size: inherit;
+    }
+  }
+
+  &.link-hover {
+    @apply decoration-transparent before:opacity-0 hover:decoration-current hover:before:opacity-100;
+  }
+}
+
+@utility toc {
+  & li.visible > a {
+    @apply text-text decoration-muted translate-x-1.5;
+  }
+}
+
+@utility scrollbar-hide {
+  scrollbar-width: none;
+}
+
+/* 逐项入场动画 */
+@utility slide-container {
+  --enter-delay: 100ms;
+
+  [data-slide],
+  [data-slide-auto] {
+    --enter-start: attr(data-slide-start type(<number>), 0);
+  }
+
+  [data-slide] {
+    --enter-stagger: var(--enter-start);
+  }
+
+  [data-slide-auto] > * {
+    --enter-stagger: min(calc(var(--enter-start) + sibling-index() - 1), 20);
+  }
+
+  [data-slide],
+  [data-slide-auto] > * {
+    animation: slide-enter 0.8s backwards;
+    animation-delay: calc(var(--enter-stagger) * var(--enter-delay));
+  }
+}
+
+/* 相册网格 */
+@utility photo-gallery {
+  @apply grid grid-cols-3 gap-3 max-md:grid-cols-2;
+
+  &[data-total='1'] {
+    @apply grid-cols-1;
+  }
+
+  &[data-total='2'],
+  &[data-total='4'] {
+    @apply grid-cols-2;
+  }
+
+  figure {
+    @apply m-0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-slide],
+  [data-slide-auto] > * {
+    animation: none !important;
+  }
 }

@@ -73,7 +73,10 @@ watch(
 <template>
   <article :class="props.class">
     <!-- 文章内容 -->
-    <div ref="articleRef" class="prose max-w-none">
+    <div
+      ref="articleRef"
+      class="prose prose-rosepine prose-strong:text-love prose-strong:font-extrabold prose-img:rounded-md w-full max-w-none min-w-px"
+    >
       <ContentRenderer :value="post" />
     </div>
   </article>

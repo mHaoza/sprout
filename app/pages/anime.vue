@@ -1,17 +1,21 @@
 <script setup lang="ts">
 const activeTab = ref(1)
 
+/** 今天对应的星期，仅在客户端计算，避免静态生成时被固化 */
+const todayWeekday = ref<number>()
+
 const meta = {
   title: '追番',
   description: '我的动漫追番记录',
 }
 
+useSeoMeta(meta)
+
 onMounted(() => {
-  activeTab.value = getWeekDayNumber(new Date()) || 1
+  todayWeekday.value = getWeekDayNumber(new Date())
+  activeTab.value = todayWeekday.value ?? 1
   loadWatchedData()
 })
-
-useSeoMeta(meta)
 
 const USERID = 877981
 
@@ -80,6 +84,16 @@ const { data: animeCalendarData, status } = useAsyncData(
   { default: () => defaultCalendarData, server: false },
 )
 
+/** 当前选中星期的数据 */
+const activeDay = computed(
+  () =>
+    animeCalendarData.value.find((item) => item.weekday.id === activeTab.value) ??
+    animeCalendarData.value[0]!,
+)
+
+/** 日历数据是否仍在加载（静态生成阶段 status 保持 idle） */
+const calendarLoading = computed(() => status.value === 'idle' || status.value === 'pending')
+
 /** 已看动画 */
 const watched = reactive({
   loading: false,
@@ -88,6 +102,21 @@ const watched = reactive({
   data: [] as UserSubjectCollection[],
   total: Infinity,
 })
+
+/** 已看动画总数（首次加载完成前为 Infinity，不展示） */
+const watchedTotal = computed(() => (Number.isFinite(watched.total) ? watched.total : null))
+
+/** 是否还有更多可加载 */
+const hasMore = computed(() => watched.data.length > 0 && watched.data.length < watched.total)
+
+/** 集数标签：优先展示观看进度，其次展示总集数 */
+function episodeLabel(collection: UserSubjectCollection) {
+  if (collection.ep_status > 0) {
+    return `已看 ${collection.ep_status} 集`
+  }
+
+  return collection.subject.eps > 0 ? `全 ${collection.subject.eps} 集` : ''
+}
 
 async function loadWatchedData() {
   watched.loading = true
@@ -115,136 +144,145 @@ function getWeekDayNumber(date: Date | string) {
 </script>
 
 <template>
-  <div>
-    <Banner
-      :title="meta.title"
-      image="https://img.iice.fun/blog/2025/11/13/edf8e82c7c90de3ebbe2fb52b02eb18c.webp"
-      date="2025-11-11"
-    />
-
-    <div class="mx-auto max-w-4xl p-4">
-      <h2 class="mt-12 mb-2 text-xl font-bold">追番</h2>
-
-      <UTabs
-        v-model="activeTab"
-        :items="
-          animeCalendarData.map((item) => ({
-            label: item.weekday.cn,
-            value: item.weekday.id,
-            slot: `tab-${item.weekday.id}`,
-          }))
-        "
-        :ui="{
-          list: 'bg-white/60 backdrop-blur-sm border border-gray-200',
-          trigger: 'data-active:bg-primary-300/20',
-        }"
-        class="w-full rounded-lg p-2 shadow-sm backdrop-blur-sm"
-      >
-        <template
-          v-for="item in animeCalendarData"
-          :key="item.weekday.en"
-          #[`tab-${item.weekday.id}`]
-        >
-          <div class="px-2 py-3">
-            <UEmpty
-              v-if="!['error', 'success'].includes(status)"
-              variant="naked"
-              icon="i-lucide-calendar-x"
-              title="加载中..."
-            />
-            <div v-else-if="item.items.length > 0" class="grid w-full grid-cols-6 gap-4">
-              <UPopover
-                v-for="collection in item.items"
-                :key="collection.subject.id"
-                :content="{ side: 'top' }"
-                mode="hover"
-                class="group"
-              >
-                <template #default>
-                  <a
-                    :href="`https://bgm.tv/subject/${collection.subject.id}`"
-                    target="_blank"
-                    class="relative block aspect-[0.7] cursor-pointer overflow-hidden rounded-lg shadow-sm transition-transform hover:scale-[1.02] hover:shadow-lg"
-                  >
-                    <img
-                      :src="collection.subject.images.small"
-                      class="pointer-events-none h-full w-full object-cover"
-                      :alt="collection.subject.name_cn"
-                    />
-                    <div
-                      class="absolute right-0 bottom-0 left-0 truncate bg-linear-to-t from-gray-900/80 via-gray-900/50 to-transparent p-2 pt-8 text-center text-sm text-white"
-                    >
-                      {{ collection.subject.name_cn }}
-                    </div>
-                  </a>
-                </template>
-                <template #content>
-                  <AnimePopover :collection="collection" />
-                </template>
-              </UPopover>
-            </div>
-            <UEmpty
-              v-else
-              variant="naked"
-              icon="i-lucide-calendar-x"
-              title="暂无追番更新"
-              description="本日无追番"
-            />
-          </div>
-        </template>
-      </UTabs>
-
-      <h2 class="mt-12 mb-2 text-xl font-bold">已看动画</h2>
-
-      <div class="grid grid-cols-4 gap-4">
-        <a
-          v-for="collection in watched.data"
-          :key="collection.subject.id"
-          :href="`https://bgm.tv/subject/${collection.subject.id}`"
-          :title="collection.subject.name_cn"
-          target="_blank"
-          class="group relative cursor-pointer overflow-hidden border border-gray-200 shadow-sm"
-        >
-          <div class="pointer-events-none aspect-[0.7] overflow-hidden">
-            <img
-              :src="collection.subject.images.medium"
-              class="h-full w-full transition-transform group-hover:scale-110"
-              :alt="collection.subject.name_cn"
-            />
-          </div>
-          <div class="truncate p-2 text-center">
-            {{ collection.subject.name_cn }}
-          </div>
-        </a>
-      </div>
-
-      <!-- 加载更多 -->
-      <UButton
-        v-if="watched.data.length > 0 && watched.data.length < watched.total"
-        variant="outline"
-        :loading="watched.loading"
-        class="mx-auto mt-4 flex cursor-pointer items-center rounded-none border bg-transparent"
-        @click="loadWatchedData"
-      >
-        加载更多
-      </UButton>
-      <div v-else-if="!watched.loading" class="py-12 text-center">没有更多了~</div>
-
-      <!-- Bangumi 链接 -->
-      <div class="mt-8 flex">
-        <p>
-          详细的记录，可以访问
-          <a
-            href="https://bgm.tv/user/877981"
-            target="_blank"
-            class="text-primary-300 hover:underline"
-          >
-            Bangumi
-          </a>
+  <AppPage title="追番">
+    <!-- 本周更新 -->
+    <section data-slide-auto class="space-y-5">
+      <div class="flex items-end justify-between gap-2">
+        <div class="flex items-center gap-1">
+          <UIcon name="i-lucide-calendar-days" class="size-4.5" />
+          <h2 class="font-bold">本周更新</h2>
+        </div>
+        <p v-if="!calendarLoading" class="text-subtle text-sm">
+          {{ activeDay.weekday.cn }} · {{ activeDay.items.length }} 部
         </p>
       </div>
-    </div>
-  </div>
+
+      <!-- 星期选择 -->
+      <div class="border-overlay bg-surface/60 flex gap-1 rounded-md border p-1">
+        <button
+          v-for="day in animeCalendarData"
+          :key="day.weekday.id"
+          type="button"
+          :title="day.weekday.cn"
+          :aria-pressed="activeTab === day.weekday.id"
+          class="relative flex-1 cursor-pointer rounded px-1 py-1.5 text-xs transition-colors duration-300 sm:text-sm"
+          :class="
+            activeTab === day.weekday.id
+              ? 'bg-overlay text-text font-bold'
+              : 'text-subtle hover:text-text'
+          "
+          @click="activeTab = day.weekday.id"
+        >
+          <span class="sm:hidden">{{ day.weekday.ja.charAt(0) }}</span>
+          <span class="hidden sm:inline">{{ day.weekday.cn }}</span>
+
+          <!-- 今天 -->
+          <span
+            v-if="day.weekday.id === todayWeekday"
+            aria-hidden="true"
+            class="bg-love absolute top-1 right-1 size-1.5 rounded-full"
+          />
+        </button>
+      </div>
+
+      <!-- 加载骨架 -->
+      <div v-if="calendarLoading" class="grid grid-cols-3 gap-4 sm:grid-cols-4">
+        <div v-for="i in 4" :key="i" class="animate-pulse space-y-2">
+          <div class="bg-overlay aspect-[0.7] w-full rounded-md"></div>
+          <div class="bg-overlay h-3.5 w-3/4 rounded"></div>
+        </div>
+      </div>
+
+      <!-- 当日番剧 -->
+      <div v-else-if="activeDay.items.length > 0" class="grid grid-cols-3 gap-4 sm:grid-cols-4">
+        <UPopover
+          v-for="collection in activeDay.items"
+          :key="collection.subject.id"
+          mode="hover"
+          :content="{ side: 'top', sideOffset: 8 }"
+        >
+          <AnimeCard :collection="collection" :meta="episodeLabel(collection)" />
+
+          <template #content>
+            <AnimePopover :collection="collection" />
+          </template>
+        </UPopover>
+      </div>
+
+      <p
+        v-else
+        class="border-overlay text-muted rounded-md border border-dashed py-12 text-center text-sm"
+      >
+        这一天没有追番更新
+      </p>
+    </section>
+
+    <!-- 已看动画 -->
+    <section data-slide-auto class="space-y-5">
+      <div class="flex items-end justify-between gap-2">
+        <div class="flex items-center gap-1">
+          <UIcon name="i-lucide-history" class="size-4.5" />
+          <h2 class="font-bold">已看动画</h2>
+        </div>
+        <p v-if="watchedTotal" class="text-subtle text-sm">共 {{ watchedTotal }} 部</p>
+      </div>
+
+      <div
+        v-if="watched.loading && watched.data.length === 0"
+        class="grid grid-cols-3 gap-4 sm:grid-cols-4"
+      >
+        <div v-for="i in 8" :key="i" class="animate-pulse space-y-2">
+          <div class="bg-overlay aspect-[0.7] w-full rounded-md"></div>
+          <div class="bg-overlay h-3.5 w-3/4 rounded"></div>
+        </div>
+      </div>
+
+      <div v-else-if="watched.data.length > 0" class="grid grid-cols-3 gap-4 sm:grid-cols-4">
+        <UPopover
+          v-for="collection in watched.data"
+          :key="collection.subject.id"
+          mode="hover"
+          :content="{ side: 'top', sideOffset: 8 }"
+        >
+          <AnimeCard :collection="collection" :meta="episodeLabel(collection)" />
+
+          <template #content>
+            <AnimePopover :collection="collection" />
+          </template>
+        </UPopover>
+      </div>
+
+      <p
+        v-else
+        class="border-overlay text-muted rounded-md border border-dashed py-12 text-center text-sm"
+      >
+        还没有观看记录
+      </p>
+
+      <!-- 加载更多 -->
+      <div v-if="watched.data.length > 0" class="flex justify-center">
+        <button
+          v-if="hasMore"
+          type="button"
+          :disabled="watched.loading"
+          class="border-overlay text-subtle hover:border-muted hover:text-text flex cursor-pointer items-center gap-1 rounded-md border px-4 py-1.5 text-sm transition-colors duration-300 disabled:cursor-default disabled:opacity-60"
+          @click="loadWatchedData"
+        >
+          <UIcon v-if="watched.loading" name="i-lucide-loader-circle" class="size-4 animate-spin" />
+          {{ watched.loading ? '加载中' : '加载更多' }}
+        </button>
+        <p v-else class="text-muted text-sm">— 没有更多了 —</p>
+      </div>
+    </section>
+
+    <!-- Bangumi -->
+    <p data-slide class="text-subtle">
+      详细的记录，可以访问
+      <a href="https://bgm.tv/user/877981" target="_blank" rel="noopener noreferrer" class="link">
+        Bangumi
+      </a>
+    </p>
+  </AppPage>
 </template>
 
 <style scoped></style>
