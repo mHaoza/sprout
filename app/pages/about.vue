@@ -18,8 +18,20 @@ useSeoMeta({
       <p>
         这里是 {{ appConfig.site.author }} 的「{{
           appConfig.site.name
-        }}」，一个用来记录技术、生活与所思所想的地方。站点使用 Nuxt 与 Nuxt Content
-        构建，采用静态生成，主题配色随二十四节气流转。
+        }}」，一块用来堆放技术笔记、生活碎片与胡思乱想的地方。
+      </p>
+      <p>站点使用 Nuxt 4 与 Nuxt Content 构建。</p>
+      <p>
+        主题样式参考了shiyu 开源的博客主题
+        <a
+          href="https://github.com/chanshiyucx/zero"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="link"
+        >
+          zero
+        </a>
+        ，在此致谢。
       </p>
 
       <h4>关于我</h4>

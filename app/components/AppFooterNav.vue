@@ -4,12 +4,6 @@
  * 只渲染 appConfig.links 中实际配置过的链接
  */
 const appConfig = useAppConfig()
-const themeStore = useThemeStore()
-
-/** 把触发按钮自身作为主题面板的定位锚点 */
-function toggleTheme(event: MouseEvent) {
-  themeStore.togglePanel(event.currentTarget as HTMLElement)
-}
 
 const internalLinks = [
   { to: '/links', icon: 'i-lucide-scroll-text', label: '友链' },
@@ -32,25 +26,17 @@ const externalLinks = computed(() => {
 
 <template>
   <div class="flex items-center gap-3">
-    <button
-      type="button"
-      aria-label="切换主题"
-      aria-haspopup="true"
-      :aria-expanded="themeStore.panelVisible"
-      class="cursor-pointer"
-      @click="toggleTheme"
-    >
-      <UIcon
-        name="i-lucide-sun"
-        class="text-muted hover:text-subtle size-4.5 transition-colors duration-300"
-      />
-    </button>
+    <SolarTermToggle />
+    <ColorModeToggle />
 
-    <NuxtLink v-for="item in internalLinks" :key="item.to" :to="item.to" :aria-label="item.label">
-      <UIcon
-        :name="item.icon"
-        class="text-muted hover:text-subtle size-4.5 transition-colors duration-300"
-      />
+    <NuxtLink
+      v-for="item in internalLinks"
+      :key="item.to"
+      :to="item.to"
+      :aria-label="item.label"
+      class="icon-link"
+    >
+      <UIcon :name="item.icon" class="size-4.5" />
     </NuxtLink>
 
     <a
@@ -60,11 +46,9 @@ const externalLinks = computed(() => {
       :aria-label="item.label"
       target="_blank"
       rel="noopener noreferrer"
+      class="icon-link"
     >
-      <UIcon
-        :name="item.icon"
-        class="text-muted hover:text-subtle size-4.5 transition-colors duration-300"
-      />
+      <UIcon :name="item.icon" class="size-4.5" />
     </a>
   </div>
 </template>

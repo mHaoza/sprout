@@ -51,7 +51,8 @@ const moreItems = computed(() => toItems(latestMore.value, 'more'))
   <AppPage :show-nav="false">
     <HomeAbout />
 
-    <div class="space-y-12">
+    <!-- data-slide-start="2" 接着 HomeAbout 的 2 个子元素继续错峰 -->
+    <div data-slide-auto data-slide-start="2" class="space-y-12">
       <HomeSection title="文章" to="/articles" icon="i-lucide-feather" :list="articleItems" />
       <HomeSection title="技术栈" to="/stack" icon="i-lucide-layers" :list="stackItems" />
       <HomeSection title="生活" to="/life" icon="i-lucide-flower-2" :list="lifeItems" />

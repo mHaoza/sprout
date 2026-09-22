@@ -62,7 +62,17 @@ export default defineNuxtConfig({
     build: {
       markdown: {
         highlight: {
-          theme: 'rose-pine-dawn',
+          // 三主题键必须写全（light / default / dark）：@nuxt/ui 会给 @nuxtjs/mdc 注入一份
+          // 默认值，若只写 default + dark，light 会残留成 `material-theme-lighter`，
+          // 白白多打包一套主题、并在 <pre> 上留下无意义的类名。
+          //
+          // 作用域对应关系：light → `html.light`，default → `html`，dark → `html.dark`。
+          // 本站只切换 <html class="dark">，所以浅色由 default 兜底，light 与它同值仅为消除残留。
+          theme: {
+            light: 'rose-pine-dawn',
+            default: 'rose-pine-dawn',
+            dark: 'rose-pine-moon',
+          },
           langs: [
             'javascript',
             'typescript',

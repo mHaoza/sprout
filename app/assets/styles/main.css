@@ -1,34 +1,34 @@
 @import 'tailwindcss';
 @import '@nuxt/ui';
 @import 'tw-animate-css';
-@import '../fonts/fonts.css';
 
 @plugin '@tailwindcss/typography';
 
-/* 强制加载所有主题颜色 - 确保动态类名生效 */
-@source './safelist.txt';
-
-@custom-variant dark (&:is(.dark *));
+/* 暗色分支统一由 <html class="dark"> 驱动。
+   Tailwind 的 `dark:` 变体、Nuxt UI 的 .dark 令牌、Shiki 生成的
+   `html.dark .shiki span` 都依赖同一个类名，三者必须保持一致。 */
+@custom-variant dark (&:where(.dark, .dark *));
 
 /* ==================================================================
  * 语义色板
- * 命名参考 shiyu.me 使用的 Rosé Pine 调色板（语义化令牌）。
- * 强调色（love / rose）绑定到节气换肤的 primary，确保换肤依然生效。
+ * 命名与取值参考 shiyu.me / zero 使用的 Rosé Pine 调色板（语义化令牌）。
+ * 每个令牌都用 light-dark() 声明明暗两套值：颜色模式只取决于 <html> 的
+ * color-scheme。
  * ================================================================== */
 @theme {
-  --color-base: #fffbf0;
-  --color-surface: #fffaf3;
-  --color-overlay: #f0e6dc;
-  --color-muted: #9893a5;
-  --color-subtle: #797593;
-  --color-text: #575279;
+  --color-base: light-dark(#fffbf0, #232136);
+  --color-surface: light-dark(#fffaf3, #2a273f);
+  --color-overlay: light-dark(#f0e6dc, #393552);
+  --color-muted: light-dark(#9893a5, #6e6a86);
+  --color-subtle: light-dark(#797593, #908caa);
+  --color-text: light-dark(#575279, #e0def4);
 
-  --color-love: var(--ui-primary);
-  --color-gold: #ea9d34;
-  --color-rose: var(--ui-primary);
-  --color-pine: #286983;
-  --color-foam: #56949f;
-  --color-iris: #907aa9;
+  --color-love: light-dark(#b4637a, #eb6f92);
+  --color-gold: light-dark(#ea9d34, #f6c177);
+  --color-rose: light-dark(#d7827e, #ebbcba);
+  --color-pine: light-dark(#286983, #31748f);
+  --color-foam: light-dark(#56949f, #9ccfd8);
+  --color-iris: light-dark(#907aa9, #c4a7e7);
 }
 
 @theme inline {
@@ -39,11 +39,16 @@
   --font-mono:
     'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
     monospace;
-  --font-mingchao: 'mingchao', var(--font-sans);
 
   --animate-slide-enter: slide-enter 0.8s backwards;
   --animate-spinner-scale: spinner-scale var(--duration, 30s) var(--delay, 30s)
     cubic-bezier(0.2, 0.68, 0.18, 1.08) infinite;
+  /* 浅色模式太阳的缓慢自转。默认的 animate-spin 是 1s，转得太快；
+     注意 Tailwind v4 没有 animate-duration-* 工具类，时长必须写进 token 里。 */
+  --animate-sun-spin: spin 20s linear infinite;
+  /* 黑白切换的揭幕动画（配合 ::view-transition-new(root)） */
+  --animate-turn-on: turn-on 600ms ease-in-out;
+  --animate-turn-off: turn-off 600ms ease-in-out;
 
   @keyframes slide-enter {
     0% {
@@ -67,12 +72,33 @@
       transform: scaley(1);
     }
   }
+
+  /* 切到浅色：自上而下揭开 */
+  @keyframes turn-on {
+    0% {
+      clip-path: polygon(0% 0%, 100% 0, 100% 0, 0 0);
+    }
+    100% {
+      clip-path: polygon(0% 0%, 100% 0, 100% 100%, 0 100%);
+    }
+  }
+
+  /* 切到深色：自下而上揭开 */
+  @keyframes turn-off {
+    0% {
+      clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0% 100%);
+    }
+    100% {
+      clip-path: polygon(0 100%, 100% 100%, 100% 0, 0 0);
+    }
+  }
 }
 
 :root {
-  --ui-bg: #fffbf0;
-  /* 纹理 */
-  --texture: url('~/assets/textures/frosted.png');
+  --ui-bg: var(--color-base);
+  /* 噪点纹理：浅色模式用黑噪点，深色模式用反相的白噪点 */
+  --texture: url('~/assets/textures/grain-black.png');
+  --texture-invert: url('~/assets/textures/grain-white.png');
 
   /* ------------------------------------------------------------------
    * 把 Nuxt UI 的语义令牌映射到上面的色板。
@@ -102,11 +128,29 @@
     @apply scroll-smooth;
   }
 
+  /* light-dark() 的取值、以及原生控件/滚动条的外观都由 color-scheme 决定，
+     所以黑白切换的核心就是下面这两条规则。 */
   html {
     color-scheme: light;
     scrollbar-color: var(--color-muted) transparent;
     scrollbar-width: thin;
-    /* background-color: var(--ui-bg); */
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  /* 切换黑白时的揭幕过渡：旧快照不动，新快照按翻页方式展开 */
+  ::view-transition-old(root) {
+    animation: none;
+  }
+
+  ::view-transition-new(root) {
+    @apply animate-turn-off;
+  }
+
+  html.dark::view-transition-new(root) {
+    @apply animate-turn-on;
   }
 
   *,
@@ -164,42 +208,59 @@
     }
   }
 
+  /* 页面噪点：整屏平铺一层，深色下换成白噪点。 */
   html::after {
     content: '';
     @apply pointer-events-none fixed top-0 right-0 bottom-0 left-0 z-[-1];
     background-image: var(--texture);
   }
 
+  /* 深色下补回黑噪点，垫在白噪点下面 —— 它画在插画之上，米色画面于是又长出颗粒感；
+     而黑点落在深色页面本身上看不见，所以整屏平铺也不碍事。浅色下不需要补，
+     因为第一层就是黑噪点，它顺带盖住了插画。 */
+  html.dark::after {
+    background-image: var(--texture-invert), var(--texture);
+  }
+
+  /* 节气插画层。插画不随黑白切换做任何滤镜处理 —— 它是一张「米色底 + 墨线」的
+     不透明成品图，反相虽然能让底色融进深色背景，但会连带篡改画面本身的颜色
+     （朱印变青、暖褐变冷蓝），属于对作品的改写。深色下让它以原色呈现，
+     当作一幅贴在页面上的小画。
+
+     必须是单层：`background-image` 的过渡靠浏览器交叉淡化（Chromium 会插值成
+     `cross-fade(旧图 x%, 新图)`），而列表里只要掺进一个 `none`（用来给深色层
+     占位的那些写法），整条过渡就彻底不触发、变成瞬切。深色的黑噪点因此搬到
+     了 html.dark::after，这里只留插画自己。 */
   html::before {
     content: '';
     @apply pointer-events-none fixed top-0 right-0 bottom-0 left-0 z-[-1];
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
     background-image: var(--bg-img);
-    background-size: 16vw auto;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     background-position: 84vw bottom;
-    transition: background-image 0.8s;
-    opacity: 1;
+    background-size: 16vw auto;
+    transition: background-image 0.8s ease;
   }
 }
 
 *::selection {
-  @apply text-primary-300 bg-secondary-100/50;
+  color: var(--color-text);
+  background-color: var(--color-overlay);
 }
 
-/* 自定义滚动条样式 - 基于新的主题变量 */
+/* 自定义滚动条样式 —— 跟随语义令牌，明暗两套自适应 */
 ::-webkit-scrollbar {
-  @apply bg-secondary-100 h-1.25 w-1.25;
+  @apply h-1.25 w-1.25;
+  background-color: var(--color-overlay);
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary-300 rounded-[3px];
+  @apply rounded-[3px];
+  background-color: var(--color-muted);
   transition: background-color 0.3s ease;
 }
 
 #nprogress .bar {
-  @apply bg-primary-300!;
+  @apply bg-love!;
 }
 
 /* ==================================================================
@@ -251,6 +312,15 @@
   &.link-hover {
     @apply decoration-transparent before:opacity-0 hover:decoration-current hover:before:opacity-100;
   }
+}
+
+/* 单个图标项（页脚的图标按钮 / 图标链接）
+   必须是 flex 盒子，不能只依赖 inline-block 的文本基线对齐：
+   图标是 1em 见方的遮罩 span，作为 inline-block 时基线落在它的下边缘，
+   而行高还在下面留了下沿，导致它的视觉中心比 flex 居中项高约 2.8px。
+   统一成 flex 后，全部图标都以行的 items-center 为准，与左侧版权文字也对齐。 */
+@utility icon-link {
+  @apply text-muted hover:text-subtle flex cursor-pointer items-center transition-colors duration-300;
 }
 
 @utility toc {
@@ -309,5 +379,10 @@
   [data-slide],
   [data-slide-auto] > * {
     animation: none !important;
+  }
+
+  /* 插画的交叉淡化同样是动效 */
+  html::before {
+    transition: none;
   }
 }

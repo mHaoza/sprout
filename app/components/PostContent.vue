@@ -77,7 +77,14 @@ watch(
       ref="articleRef"
       class="prose prose-rosepine prose-strong:text-love prose-strong:font-extrabold prose-img:rounded-md w-full max-w-none min-w-px"
     >
-      <ContentRenderer :value="post" />
+      <!--
+        逐块错峰入场：
+        ContentRenderer 的根元素是 MDCRenderer，它会把「额外 attrs」落到真正的根标签上
+        （见 MDCRenderer.vue 的 `h(component, { ..., ...this.$attrs })`），
+        所以这里必须把 data-slide-auto 传给 ContentRenderer 而不是外层那个 div：
+        外层 div 只有这一个孩子，挂上去等于整篇正文一起滑入，出不来逐块效果。
+      -->
+      <ContentRenderer :value="post" data-slide-auto data-slide-start="0" />
     </div>
   </article>
 </template>
