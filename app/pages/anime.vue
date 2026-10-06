@@ -28,7 +28,7 @@ async function getCollectionRawData(
     subjectType = SubjectType.Anime,
     type = CollectionType.Watching,
     offset = 0,
-    limit = 30,
+    limit = 60,
   } = options || {}
   const apiUrl = `https://api.bgm.tv/v0/users/${username}/collections?subject_type=${subjectType}&type=${type}&limit=${limit}&offset=${offset}`
   const { data, total } = await $fetch<{ data: UserSubjectCollection[]; total: number }>(apiUrl)
