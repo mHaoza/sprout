@@ -32,16 +32,26 @@ const channels = computed(() => {
 
   const { name, name_cn } = detail.value
 
-  return [
-    { label: '動畫瘋', query: name, href: 'https://ani.gamer.com.tw/search.php?keyword=' },
+  // Kazumi 通过自定义协议唤起，交给系统打开应用，不在浏览器新标签页中打开
+  const kazumi = {
+    label: 'Kazumi',
+    href: `kazumi://bangumi/${props.collection.subject.id}`,
+    external: false,
+  }
+
+  const searches = [
+    // { label: '動畫瘋', query: name, href: 'https://ani.gamer.com.tw/search.php?keyword=' },
     { label: 'AGE动漫', query: name, href: 'https://www.agedm.io/search?query=' },
-    { label: 'AGE 中文', query: name_cn || name, href: 'https://www.agedm.io/search?query=' },
+    // { label: 'AGE 中文', query: name_cn || name, href: 'https://www.agedm.io/search?query=' },
   ]
     .filter((channel) => channel.query)
     .map((channel) => ({
       label: channel.label,
       href: channel.href + encodeURIComponent(channel.query),
+      external: true,
     }))
+
+  return [...searches, kazumi]
 })
 
 /** 集数信息：总集数 · 已放送 · 已看 */
@@ -177,8 +187,8 @@ watch(
           v-for="channel in channels"
           :key="channel.label"
           :href="channel.href"
-          target="_blank"
-          rel="noopener noreferrer"
+          :target="channel.external ? '_blank' : undefined"
+          :rel="channel.external ? 'noopener noreferrer' : undefined"
           class="text-subtle hover:text-text flex items-center gap-1 text-xs transition-colors"
         >
           {{ channel.label }}
