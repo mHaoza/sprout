@@ -17,9 +17,4 @@ export default defineAppConfig({
   links: {
     github: 'https://github.com/mHaoza',
   } as Record<string, string | undefined>,
-  ui: {
-    pageColumns: {
-      base: 'relative column-1 md:columns-2 lg:columns-2 gap-4 space-y-4',
-    },
-  },
 })
